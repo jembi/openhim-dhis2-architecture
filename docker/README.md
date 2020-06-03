@@ -26,7 +26,7 @@ To start up the services after a tear down, use the following command:
 ./compose.sh up
 ```
 
-To completely remove all the services, use the following option:
+To completely remove all the services, use the following command:
 
 ```bash
 ./compose.sh destroy
