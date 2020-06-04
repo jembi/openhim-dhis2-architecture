@@ -36,3 +36,17 @@ To completely remove all the services, use the following command:
 ```bash
 ./deploy.sh destroy docker
 ```
+
+## Accessing the services
+
+### OpenHIM
+
+* Console url: <http://localhost:9000>
+* Username: **root@openhim.org**
+* Password: **openhim-password**
+
+### DHIS2
+
+* Url : <http://localhost:8081>
+* Username: **admin**
+* Password: **district**
