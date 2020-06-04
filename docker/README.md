@@ -2,10 +2,6 @@
 
 ## Getting Started
 
-The services can be deployed using docker-compose.
-
-### Docker-compose
-
 Navigate to the folder with the `compose.sh` script to execute the commands.
 
 To set up the services, use the following command:
