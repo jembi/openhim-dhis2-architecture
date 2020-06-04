@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set eu
-
 COMMAND=$1
 TARGET=$2
 
