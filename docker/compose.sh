@@ -17,7 +17,14 @@ elif [ "$1" == "up" ]; then
 elif [ "$1" == "down" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml stop
 elif [ "$1" == "destroy" ]; then
-    docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml down -v
+    echo "This option will remove everything including database volumes"
+    echo "Enter y/Y to continue"
+
+    read -p ">> " destroy
+
+    if [[ "$destroy" =~ ^(y|Y)$ ]]; then
+        docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml down -v
+    fi
 else
     echo "Valid options are: init, up, down, or destroy"
 fi
