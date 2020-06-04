@@ -7,7 +7,7 @@ A genetic architecture for OpenHIM to DHIS2 integrations
 
 ## Getting Started
 
-The services used in the OpenHim to DHIS2 integration can be deployed using docker-compose.
+The services used in the OpenHIM to DHIS2 integration can be deployed using docker-compose.
 
 ### Docker-compose
 
