@@ -1,23 +1,23 @@
 version: '3.3'
 
 services:
-  web:
+  dhis-web:
     container_name: dhis-web
     image: dhis2/core:2.34.0
     volumes:
-    - ./config/dhis.conf:/DHIS2_home/dhis.conf
+      - ./config/dhis.conf:/DHIS2_home/dhis.conf
     environment:
-    - WAIT_FOR_DB_CONTAINER=db:5432 -t 0
+      - WAIT_FOR_DB_CONTAINER=db:5432 -t 0
     ports:
-    - "8081:8080"
+      - "8081:8080"
 
-  core:
+  openhim-core:
     container_name: openhim-core
     image: jembi/openhim-core:5
     environment:
       - mongo_url=mongodb://mongo-1:27017,mongo-2:27017,mongo-3:27017/openhim?replicaSet=mongo-set
       - mongo_atnaUrl=mongodb://mongo-1:27017,mongo-2:27017,mongo-3:27017/openhim?replicaSet=mongo-set
-      - api_authenticationTypes=["token", "basic"]
+      - api_authenticationTypes=["token", "basic", "jwt"]
     ports:
       - "8080:8080"
       - "5000:5000"
@@ -26,10 +26,10 @@ services:
       - "5051:5051"
       - "5052:5052"
 
-  console:
+  openhim-console:
     container_name: openhim-console
     image: jembi/openhim-console:1.13
     ports:
       - "9000:80"
     depends_on:
-      - core
+      - openhim-core
