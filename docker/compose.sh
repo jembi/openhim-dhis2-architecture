@@ -12,7 +12,12 @@ if [ "$1" == "init" ]; then
 
     docker-compose -f "$composeFilePath"/docker-compose-apps.yml up -d
 elif [ "$1" == "up" ]; then
-    docker-compose -f "$composeFilePath"/docker-compose-dbs.yml -f "$composeFilePath"/docker-compose-apps.yml up -d
+    docker-compose -f "$composeFilePath"/docker-compose-dbs.yml up -d
+
+    # Wait for the dbs to be properly set up and running
+    sleep 20
+
+    docker-compose -f "$composeFilePath"/docker-compose-apps.yml up -d
 elif [ "$1" == "down" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml stop
 elif [ "$1" == "destroy" ]; then
