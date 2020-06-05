@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  validator-orchestrator:
+    image: jembi/openhim-mediator-mapping:v1.0.0
+    container_name: validator-orchestrator
+    environment:
+      - OPENHIM_URL=https://openhim-core:8080
+      - OPENHIM_USERNAME=root@openhim.org
+      - OPENHIM_PASSWORD='openhim-password'
+      - MONGO_URL=mongodb://mongo-1:27017,mongo-2:27017,mongo-3:27017/validator-orchestrator?replicaSet=mongo-set
+      - PARSER_LIMIT=10mb
+
+  populator:
+    image: jembi/openhim-mediator-mapping:v1.0.0
+    container_name: populator
+    environment:
+      - OPENHIM_URL=https://openhim-core:8080
+      - OPENHIM_USERNAME=root@openhim.org
+      - OPENHIM_PASSWORD='openhim-password'
+      - MONGO_URL=mongodb://mongo-1:27017,mongo-2:27017,mongo-3:27017/populator?replicaSet=mongo-set
+      - PARSER_LIMIT=10mb
+
+  file-queue:
+    image: jembi/openhim-mediator-file-queue:latest
+    container_name: file-queue
+    environment:
+      - API_URL=https://openhim-core:8080
+      - API_USERNAME=root@openhim.org
+      - API_PASSWORD='openhim-password'
+      - HEARTBEAT=true
+      - LOG_LEVEL='info'
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - SERVER_PORT=4003
+      - TRUST_SELF_SIGNED=true
+
+  facility-cache:
+    image: jembi/facility-cache:latest
+    container_name: facility-cache
+    environment:
+      - SERVER_PORT=3500
+      - SERVER_HOSTNAME='facility-cache'
+      - OPENHIM_URL=https://openhim-core:8080
+      - OPENHIM_USERNAME=root@openhim.org
+      - OPENHIM_PASSWORD='openhim-password'
+      - REGISTER_MEDIATOR=true
+      - SERVER_PORT=4003
+      - TRUST_SELF_SIGNED=true
