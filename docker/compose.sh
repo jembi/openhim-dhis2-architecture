@@ -8,7 +8,11 @@ if [ "$1" == "init" ]; then
     # Set up the replica set
     "$composeFilePath"/initiateReplicaSet.sh
 
-    docker-compose -f "$composeFilePath"/docker-compose-apps.yml up -d
+    docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/importer/docker-compose-config.yml up -d
+
+    # Allow openhim core configuration to be applied
+    sleep 20
+
     docker-compose -f "$composeFilePath"/docker-compose-services.yml up -d
 elif [ "$1" == "up" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-dbs.yml up -d
@@ -17,12 +21,16 @@ elif [ "$1" == "up" ]; then
     sleep 20
 
     docker-compose -f "$composeFilePath"/docker-compose-apps.yml up -d
+
+    # Wait for openhim to start up
+    sleep 10
+
     docker-compose -f "$composeFilePath"/docker-compose-services.yml up -d
 elif [ "$1" == "down" ]; then
-    docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml stop
+    docker-compose -f "$composeFilePath"/docker-compose-services.yml -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml stop
 elif [ "$1" == "destroy" ]; then
-    echo "This option will remove everything including database volumes"
-    echo "Enter y/Y to -f "$composeFilePath"/docker-compose-services.yml continue"
+    echo "WARNING! This option will remove everything including database volumes"
+    echo "Are you sure you want to continue? [y/N]"
 
     read -p ">> " destroy
 
