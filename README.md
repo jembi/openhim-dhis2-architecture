@@ -43,7 +43,7 @@ To completely remove all the services, use the following command:
 
 * Console url: <http://localhost:9000>
 * Username: **root@openhim.org**
-* Password: **openhim-password**
+* Password: **password**
 
 ### DHIS2
 
