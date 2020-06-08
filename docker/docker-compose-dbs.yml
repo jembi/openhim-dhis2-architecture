@@ -1,0 +1,47 @@
+version: '3.3'
+
+volumes:
+  dhis-volume:
+  mongo-1-volume:
+  mongo-2-volume:
+  mongo-3-volume:
+
+services:
+  mongo-1:
+    image: mongo:4.2
+    container_name: mongo-1
+    volumes:
+      - mongo-1-volume:/data/db
+    command:
+      - --replSet
+      - mongo-set
+
+  mongo-2:
+    image: mongo:4.2
+    container_name: mongo-2
+    volumes:
+      - mongo-2-volume:/data/db
+    command:
+      - --replSet
+      - mongo-set
+
+  mongo-3:
+    image: mongo:4.2
+    container_name: mongo-3
+    volumes:
+      - mongo-3-volume:/data/db
+    command:
+      - --replSet
+      - mongo-set
+
+  dhis-postgres:
+    container_name: dhis-postgres
+    image: mdillon/postgis:10-alpine
+    command: postgres -c max_locks_per_transaction=100
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: dhis2
+      POSTGRES_USER: dhis
+      POSTGRES_PASSWORD: dhis
+    volumes:
+      - dhis-volume:/var/lib/postgresql/data
