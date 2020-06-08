@@ -34,7 +34,7 @@ services:
       - --replSet
       - mongo-set
 
-  postgres:
+  dhis-postgres:
     container_name: dhis-postgres
     image: mdillon/postgis:10-alpine
     command: postgres -c max_locks_per_transaction=100

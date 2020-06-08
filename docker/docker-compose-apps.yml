@@ -7,7 +7,7 @@ services:
     volumes:
       - ./config/dhis.conf:/DHIS2_home/dhis.conf
     environment:
-      - WAIT_FOR_DB_CONTAINER=db:5432 -t 0
+      - WAIT_FOR_DB_CONTAINER=dhis-postgres:5432 -t 0
     ports:
       - "8081:8080"
 
