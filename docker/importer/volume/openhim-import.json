@@ -1,0 +1,23 @@
+{
+  "Users": [
+    {
+      "groups": [
+        "admin"
+      ],
+      "firstname": "Super",
+      "surname": "User",
+      "email": "root@openhim.org",
+      "passwordAlgorithm": "sha512",
+      "passwordHash": "647547e9710763a4cadc2c18c685c3b75a16cca7119fcc9e95d1f097a9cd1570d8f73ec28744d8f274638f9414b72af4b291fb362c9e9f388966c27763338476",
+      "passwordSalt": "bcdf80333e91d96a3b5e1566661032ae",
+      "expiry": null,
+      "locked": false,
+      "token": null,
+      "tokenType": null
+    }
+  ],
+  "Clients": [],
+  "Channels": [],
+  "Mediators": [],
+  "ContactGroups": []
+}
