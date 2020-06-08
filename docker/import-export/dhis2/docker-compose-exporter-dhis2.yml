@@ -1,0 +1,17 @@
+version: '3.3'
+
+networks:
+  default:
+      external:
+          name: docker_default
+
+services:
+  metadata-exporter-dhis2:
+    container_name: metadata-exporter-dhis2
+    image: jembi/instantohie-config-importer
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./volume
+        target: /importer
+    command: sh -c "wait-on -t 60000 http-get://dhis-web:8080 && node -e 'require(\"./metadata.js\").exportMetaData()'"
