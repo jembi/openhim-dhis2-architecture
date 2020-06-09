@@ -8,7 +8,7 @@ networks:
 services:
   metadata-importer-dhis2:
     container_name: metadata-importer-dhis2
-    image: jembi/instantohie-config-importer
+    image: jembi/instantohie-config-importer:v1.0.0
     restart: on-failure
     volumes:
       - type: bind

@@ -8,7 +8,7 @@ networks:
 services:
   metadata-exporter-dhis2:
     container_name: metadata-exporter-dhis2
-    image: jembi/instantohie-config-importer
+    image: jembi/instantohie-config-importer:v1.0.0
     restart: on-failure
     volumes:
       - type: bind
