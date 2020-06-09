@@ -5,7 +5,7 @@ TARGET=$2
 
 if ! [[ "$TARGET" =~ ^(dhis2|openhim|validator|file-queue|all)$ ]]; then
     TARGET='all'
-    echo "Defaulting to 'all' as a target as the target was either not specified or invalid"
+    echo "Defaulting to 'all' as a target was not specified or invalid"
 fi
 
 composeFilePath=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
