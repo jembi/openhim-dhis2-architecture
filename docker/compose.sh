@@ -8,7 +8,7 @@ if [ "$1" == "init" ]; then
     # Set up the replica set
     "$composeFilePath"/initiateReplicaSet.sh
 
-    docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/importer/docker-compose-config.yml up -d
+    docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/default/docker-compose-config.yml up -d
 
     # Allow openhim core configuration to be applied
     sleep 20

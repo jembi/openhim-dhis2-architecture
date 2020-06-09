@@ -15,7 +15,7 @@ services:
       NODE_TLS_REJECT_UNAUTHORIZED: 0
     volumes:
       - type: bind
-        source: ./importer/volume
+        source: ./default/volume
         target: /importer
     # This command will only attempt to import the OpenHIM config when the heartbeat responds with a 2xx
     command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node openhimConfig.js"
