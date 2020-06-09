@@ -35,7 +35,7 @@ services:
       - TRUST_SELF_SIGNED=true
 
   facility-cache:
-    image: jembi/facility-cache:latest
+    image: jembi/facility-cache:v4.0.0
     container_name: facility-cache
     environment:
       - SERVER_PORT=3500
