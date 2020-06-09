@@ -1,0 +1,16 @@
+{
+  "name": "populator",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/populator"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {},
+  "inputValidation": {},
+  "requests": {},
+  "state": {},
+  "constants": {}
+}
