@@ -4,6 +4,8 @@ services:
   validator-orchestrator:
     image: jembi/openhim-mediator-mapping:v1.0.1
     container_name: validator-orchestrator
+    expose:
+      - 3003
     environment:
       - OPENHIM_URL=https://openhim-core:8080
       - OPENHIM_USERNAME=root@openhim.org
@@ -15,6 +17,8 @@ services:
   populator:
     image: jembi/openhim-mediator-mapping:v1.0.1
     container_name: populator
+    expose:
+      - 3003
     environment:
       - OPENHIM_URL=https://openhim-core:8080
       - OPENHIM_USERNAME=root@openhim.org
@@ -26,7 +30,10 @@ services:
   file-queue:
     image: jembi/openhim-mediator-file-queue:latest
     container_name: file-queue
+    expose:
+      - 4002
     environment:
+      - SERVER_PORT=4002
       - API_URL=https://openhim-core:8080
       - API_USERNAME=root@openhim.org
       - API_PASSWORD=password
@@ -39,6 +46,8 @@ services:
   facility-cache:
     image: jembi/facility-cache:v4.0.0
     container_name: facility-cache
+    expose:
+      - 3500
     environment:
       - SERVER_PORT=3500
       - SERVER_HOSTNAME=facility-cache
