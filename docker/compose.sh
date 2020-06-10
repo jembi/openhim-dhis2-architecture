@@ -13,7 +13,7 @@ if [ "$1" == "init" ]; then
     # Allow openhim core configuration to be applied
     sleep 20
 
-    docker-compose -f "$composeFilePath"/docker-compose-services.yml -f "$composeFilePath"/services-config/docker-compose-services-config.yml up -d
+    docker-compose -f "$composeFilePath"/docker-compose-services.yml up -d
 elif [ "$1" == "up" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-dbs.yml up -d
 
