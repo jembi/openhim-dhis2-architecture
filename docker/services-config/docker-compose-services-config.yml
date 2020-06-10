@@ -7,6 +7,7 @@ services:
     image: jembi/instantohie-config-importer
     restart: on-failure
     environment:
+      MEDIATOR_URN: 'urn:mediator:validator-orchestrator'
       MEDIATOR_HOST_NAME: 'validator-orchestrator'
       MEDIATOR_API_PORT: 3003
       MEDIATOR_API_PATH: /endpoints
@@ -25,6 +26,7 @@ services:
     image: jembi/instantohie-config-importer
     restart: on-failure
     environment:
+      MEDIATOR_URN: 'urn:mediator:populator'
       MEDIATOR_HOST_NAME: 'populator'
       MEDIATOR_API_PORT: 3003
       MEDIATOR_API_PATH: /endpoints
