@@ -16,8 +16,186 @@
       "tokenType": null
     }
   ],
-  "Clients": [],
-  "Channels": [],
-  "Mediators": [],
-  "ContactGroups": []
+  "Clients": [
+    {
+      "roles": [
+        "dhis2api"
+      ],
+      "clientID": "dhis2",
+      "name": "DHIS2",
+      "passwordAlgorithm": "sha512",
+      "passwordSalt": "d4c243b59e33ad86c4e402eb3d9055ae",
+      "passwordHash": "73cb96b138034d265646fc3f32fb102ab174a26ebe4bf8502c59cf99375a2140e797521b85000c5410fb07d92bca11e1c75d9d435d9aa14df148db354eebbab5"
+    }
+  ],
+  "Channels": [
+    {
+      "methods": [
+        "POST"
+      ],
+      "type": "http",
+      "allow": [
+        "dhis2",
+        "dhis2api"
+      ],
+      "whitelist": [],
+      "authType": "private",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": false,
+          "name": "File queue",
+          "secured": false,
+          "host": "localhost",
+          "port": 4002,
+          "path": "/aggregate/severe-illness",
+          "pathTransform": "",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "rewriteUrlsConfig": [],
+      "name": "DHIS2 Aggregate - Severe Illness",
+      "description": "Sends Sever Illness aggregate data to DHIS2",
+      "urlPattern": "^/aggregate/.*$",
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "updatedBy": {
+        "id": "5edfa2f76a60fa0012d8f18c",
+        "name": "Super User"
+      },
+      "alerts": []
+    },
+    {
+      "methods": [
+        "POST"
+      ],
+      "type": "http",
+      "allow": [
+        "dhis2",
+        "dhis2api"
+      ],
+      "whitelist": [],
+      "authType": "private",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": false,
+          "name": "File queue",
+          "secured": false,
+          "host": "localhost",
+          "port": 4002,
+          "path": "/event-based/inpatient-admissions",
+          "pathTransform": "",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "rewriteUrlsConfig": [],
+      "name": "DHIS2 Event Based - Inpatient Admissions",
+      "urlPattern": "^/event-based/.*$",
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "updatedBy": {
+        "id": "5edfa2f76a60fa0012d8f18c",
+        "name": "Super User"
+      },
+      "alerts": [],
+      "description": "Sends Inpatient Event data to DHIS2"
+    },
+    {
+      "methods": [
+        "POST"
+      ],
+      "type": "http",
+      "allow": [
+        "dhis2",
+        "dhis2api"
+      ],
+      "whitelist": [],
+      "authType": "private",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": false,
+          "name": "File queue",
+          "secured": false,
+          "host": "localhost",
+          "port": 4002,
+          "path": "",
+          "pathTransform": "",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "rewriteUrlsConfig": [],
+      "name": "DHIS2 Entity Based - Pregnancy Tracker",
+      "urlPattern": "^/entity-based/.*$",
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "updatedBy": {
+        "id": "5edfa2f76a60fa0012d8f18c",
+        "name": "Super User"
+      },
+      "alerts": [],
+      "description": "Sends Pregnancy Entity data to DHIS2"
+    }
+  ]
 }
