@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   validator-orchestrator:
-    image: jembi/openhim-mediator-mapping:v1.0.0
+    image: jembi/openhim-mediator-mapping:v1.0.1
     container_name: validator-orchestrator
     environment:
       - OPENHIM_URL=https://openhim-core:8080
@@ -12,7 +12,7 @@ services:
       - PARSER_LIMIT=10mb
 
   populator:
-    image: jembi/openhim-mediator-mapping:v1.0.0
+    image: jembi/openhim-mediator-mapping:v1.0.1
     container_name: populator
     environment:
       - OPENHIM_URL=https://openhim-core:8080
