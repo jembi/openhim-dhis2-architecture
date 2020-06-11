@@ -22,7 +22,6 @@ exports.importMetaData = async () => {
   )
 
   const data = JSON.stringify(jsonData)
-  console.log(data)
 
   const options = {
     url: `${OPENHIM_PROTOCOL}://${OPENHIM_API_HOSTNAME}:${OPENHIM_API_PORT}/metadata`,

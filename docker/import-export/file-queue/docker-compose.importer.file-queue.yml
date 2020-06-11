@@ -6,7 +6,7 @@ networks:
       name: docker_default
 
 services:
-  # container for executing config import scripts for setting up the facility-cache
+  # container for executing config import scripts for setting up the file-queue
   file-queue-config-importer:
     container_name: file-queue-config-importer
     image: jembi/instantohie-config-importer:v1.0.0

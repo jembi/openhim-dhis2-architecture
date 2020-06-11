@@ -2,7 +2,6 @@
 
 const axios = require('axios')
 const fs = require('fs')
-const https = require('https')
 const path = require('path')
 
 const OPENHIM_PROTOCOL = process.env.OPENHIM_PROTOCOL || 'https'
