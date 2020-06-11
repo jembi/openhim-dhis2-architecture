@@ -15,7 +15,7 @@ composeFilePath=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 if [ "$COMMAND" == "import" ]; then
     if [[ "$TARGET" =~ ^(dhis2|all)$ ]]; then
-        docker-compose -f "$composeFilePath"/import-export/dhis2/docker-compose-importer-dhis2.yml up
+        docker-compose -f "$composeFilePath"/import-export/dhis2/docker-compose.importer.dhis2.yml up
     fi
 
     if [[ "$TARGET" =~ ^(openhim|all)$ ]]; then
@@ -39,7 +39,7 @@ if [ "$COMMAND" == "import" ]; then
     fi
 elif [ "$COMMAND" == "export" ]; then
     if [[ "$TARGET" =~ ^(dhis2|all)$ ]]; then
-        docker-compose -f "$composeFilePath"/import-export/dhis2/docker-compose-exporter-dhis2.yml up
+        docker-compose -f "$composeFilePath"/import-export/dhis2/docker-compose.exporter.dhis2.yml up
     fi
 
     if [[ "$TARGET" =~ ^(openhim|all)$ ]]; then
