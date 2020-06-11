@@ -48,6 +48,7 @@ exports.importMetaData = async () => {
       'Content-Length': Buffer.byteLength(configData),
       Authorization: `Basic ${authHeader}`
     },
+    maxContentLength: 100000000,
     data: configData
   }
 
@@ -72,6 +73,7 @@ exports.exportMetaData = async () => {
       Accept: 'application/json',
       Authorization: `Basic ${authHeader}`
     },
+    maxContentLength: 100000000,
     validateStatus: (status) => {
       return status == 200
     }
@@ -79,6 +81,8 @@ exports.exportMetaData = async () => {
 
   try {
     const response = await axios(options)
+
+    console.log(`Exporting DHIS2 data... Byte Length: ${response.headers['content-length']}`)
 
     // The gzip module requires a stream of data
     const streamResponseData = new PassThrough()

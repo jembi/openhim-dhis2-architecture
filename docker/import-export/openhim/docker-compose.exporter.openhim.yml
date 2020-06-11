@@ -1,0 +1,24 @@
+version: '3.3'
+
+networks:
+  default:
+    external:
+      name: docker_default
+
+services:
+  metadata-exporter-openhim:
+    container_name: metadata-exporter-openhim
+    image: jembi/instantohie-config-importer:v1.0.0
+    restart: on-failure
+    environment:
+      OPENHIM_API_HOSTNAME: 'openhim-core'
+      OPENHIM_API_PORT: 8080
+      OPENHIM_API_USERNAME: 'root@openhim.org'
+      OPENHIM_API_PASSWORD: 'password'
+      # Reject unauthorised is only needed if the OpenHIM's SSL is not setup
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+    volumes:
+      - type: bind
+        source: ./volume
+        target: /importer
+    command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node -e 'require(\"./metadata.js\").exportMetaData()'"
