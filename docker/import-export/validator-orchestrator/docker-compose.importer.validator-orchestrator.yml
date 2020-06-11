@@ -20,4 +20,4 @@ services:
         source: ./volume
         target: /importer
     # This command will only attempt to import the service config when the mediator is up and running
-    command: sh -c "wait-on -t 60000 http-get://validator-orchestrator:3003/uptime && sleep 1 && node serviceConfig.js"
+    command: sh -c "wait-on -t 60000 http-get://validator-orchestrator:3003/uptime && node -e 'require(\"./metadata.js\").importMetaData()'"

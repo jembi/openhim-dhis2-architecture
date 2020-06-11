@@ -2,7 +2,6 @@
 
 const axios = require('axios')
 const fs = require('fs')
-const https = require('https')
 const path = require('path')
 
 const OPENHIM_PROTOCOL = process.env.OPENHIM_PROTOCOL || 'https'
@@ -19,24 +18,24 @@ const authHeader = new Buffer.from(
   `${OPENHIM_API_USERNAME}:${OPENHIM_API_PASSWORD}`
 ).toString('base64')
 
-const jsonData = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, 'facility-cache.json'))
-)
+exports.importMetaData = async () => {
+  const jsonData = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, 'facility-cache.json'))
+  )
+  
+  const data = JSON.stringify(jsonData)
 
-const data = JSON.stringify(jsonData)
+  const options = {
+    url: `${OPENHIM_PROTOCOL}://${OPENHIM_API_HOSTNAME}:${OPENHIM_API_PORT}/mediators/${OPENHIM_MEDIATOR_URN}/config`,
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length,
+      Authorization: `Basic ${authHeader}`
+    },
+    data: data
+  }
 
-const options = {
-  url: `${OPENHIM_PROTOCOL}://${OPENHIM_API_HOSTNAME}:${OPENHIM_API_PORT}/mediators/${OPENHIM_MEDIATOR_URN}/config`,
-  method: 'put',
-  headers: {
-    'Content-Type': 'application/json',
-    'Content-Length': data.length,
-    Authorization: `Basic ${authHeader}`
-  },
-  data: data
-}
-
-const importData = async () => {
   try {
     const response = await axios(options)
   
@@ -57,5 +56,3 @@ const importData = async () => {
     throw new Error(`Failed to import OpenHIM Mediator config: ${error.message}`)
   }
 }
-
-importData()
