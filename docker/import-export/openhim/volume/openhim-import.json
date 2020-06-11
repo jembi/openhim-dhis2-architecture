@@ -1,0 +1,44 @@
+{
+  "Channels": [],
+  "Clients": [],
+  "Mediators": [],
+  "Users": [
+    {
+      "groups": [
+        "admin"
+      ],
+      "firstname": "Super",
+      "surname": "User",
+      "email": "root@openhim.org",
+      "passwordAlgorithm": "sha512",
+      "passwordHash": "647547e9710763a4cadc2c18c685c3b75a16cca7119fcc9e95d1f097a9cd1570d8f73ec28744d8f274638f9414b72af4b291fb362c9e9f388966c27763338476",
+      "passwordSalt": "bcdf80333e91d96a3b5e1566661032ae",
+      "expiry": null,
+      "locked": false,
+      "token": null,
+      "tokenType": null
+    }
+  ],
+  "ContactGroups": [],
+  "KeystoreModelAPI": [
+    {
+      "cert": {
+        "validity": {
+          "start": "2017-12-13T07:06:58.000Z",
+          "end": "2037-12-08T07:06:58.000Z"
+        },
+        "country": "ZA",
+        "state": "Western Cape",
+        "locality": "",
+        "organization": "OpenHIM Default Certificate",
+        "organizationUnit": "",
+        "commonName": "localhost",
+        "emailAddress": "openhim-implementers@googlegroups.com",
+        "data": "-----BEGIN CERTIFICATE-----\nMIIEADCCAuigAwIBAgIJAONzGh1FuqGCMA0GCSqGSIb3DQEBCwUAMIGUMQswCQYD\nVQQGEwJaQTEVMBMGA1UECAwMV2VzdGVybiBDYXBlMSQwIgYDVQQKDBtPcGVuSElN\nIERlZmF1bHQgQ2VydGlmaWNhdGUxEjAQBgNVBAMMCWxvY2FsaG9zdDE0MDIGCSqG\nSIb3DQEJARYlb3BlbmhpbS1pbXBsZW1lbnRlcnNAZ29vZ2xlZ3JvdXBzLmNvbTAe\nFw0xNzEyMTMwNzA2NThaFw0zNzEyMDgwNzA2NThaMIGUMQswCQYDVQQGEwJaQTEV\nMBMGA1UECAwMV2VzdGVybiBDYXBlMSQwIgYDVQQKDBtPcGVuSElNIERlZmF1bHQg\nQ2VydGlmaWNhdGUxEjAQBgNVBAMMCWxvY2FsaG9zdDE0MDIGCSqGSIb3DQEJARYl\nb3BlbmhpbS1pbXBsZW1lbnRlcnNAZ29vZ2xlZ3JvdXBzLmNvbTCCASIwDQYJKoZI\nhvcNAQEBBQADggEPADCCAQoCggEBANATU5IKhCefWnS2exCZlCs6AuN0YnMH/9Bc\n0Jf1InMgyFeFufR4wktQCCDp9BCB0CoYzM5To9UTDHsSA3VTTZhVm5cdHPl3Xjz3\nuUQQaRsFGlVXNXnkg0uMHwRAg3pzcXIE9s9k1v9mZHFZWLaZlypNjpBekz4nvtm0\nVjxe9E+4JMunldIuCL7MNjSM+Eg6Mi/kcgH3m2clw2gVz1kQbshsp+Ou/iLv1Aao\nSCdu8sd/vWweTAT/9g2p1u2FASqn9kJ+oWuHvRNvRPNtByvS+eZKH6DhbIsz8r1a\nzfZMULCvz20Tk6BqJYYnk/KbjHyRiUJab+8Or3OFd6qk49RpkScCAwEAAaNTMFEw\nHQYDVR0OBBYEFEPrhGnwZAf3pnObFfKgQe5CSZzyMB8GA1UdIwQYMBaAFEPrhGnw\nZAf3pnObFfKgQe5CSZzyMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQAD\nggEBABz9lcSTasHRHwcka13MoVkjR9XuOelCq5wAYXaLh/1tJAKULwrDu9ryk5Uw\nZn80f6YvYZG1EismMmAfayslAUX98aFme7qU1nQKdxtlLa5as9YmdWktt+DgarJQ\neTkhlhgobrlcBVn6QGCU0clT8XRr8Hg1P/b1RY0kkUjHdxisoePgqHI/D185rZ5c\nLg4qQUEZoo7OUs9g6EWD14LDbVahuS4cgtdwaW8BflBYTO2COpKXrp/rew4GQiw4\nyVg771t3oRcCt/xnZnDWKlNc9Q3bnax0s21PaHRwd2CVBVcd7TH/shDyQDUe6ush\njTwrcEj33iR/tz9+NUeGKcOYcKI=\n-----END CERTIFICATE-----\n",
+        "fingerprint": "FB:6B:54:E0:61:49:16:63:15:7A:0A:8B:B8:28:A6:76:BB:DC:16:F0"
+      },
+      "key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA0BNTkgqEJ59adLZ7EJmUKzoC43Ricwf/0FzQl/UicyDIV4W5\n9HjCS1AIIOn0EIHQKhjMzlOj1RMMexIDdVNNmFWblx0c+XdePPe5RBBpGwUaVVc1\neeSDS4wfBECDenNxcgT2z2TW/2ZkcVlYtpmXKk2OkF6TPie+2bRWPF70T7gky6eV\n0i4Ivsw2NIz4SDoyL+RyAfebZyXDaBXPWRBuyGyn467+Iu/UBqhIJ27yx3+9bB5M\nBP/2DanW7YUBKqf2Qn6ha4e9E29E820HK9L55kofoOFsizPyvVrN9kxQsK/PbROT\noGolhieT8puMfJGJQlpv7w6vc4V3qqTj1GmRJwIDAQABAoIBADp6pAswf3HvXGne\n+3lv4G/BrxwkEqNHxULXQxziHVuEBCptABVQdzLZfF9bwWd+RHYAYFdAtJPm9aQF\nLQmlbvJ4ZPE0kncecFLsQJp7jj600XDYwMPQUIJEEFeOliUtGt4zvPYO3koLigE9\nXix7wDt4bq/ulK1sWDwxbecrvLhGg71Q1fW24tqGJUznYtynwhfE5U+qCTSLjye/\nfELTCLArK4olHcxjwPY9gdeeBTqP0IryPad7TroK6xK+j+966xf8aiCfys711ZPq\n2wPO7WtNTZd1iOXWA6cCN2yjggziYSDwbRby8OCcxlr+yNSbV/isL9dHzdkEcCQ8\nOdxNVFECgYEA9ZqyI1UVpnix8CC8iIGk6UlmuY0JVKS7oPMqyIH5jSSAKG6y6aP0\nFLhvk+ccgEhzU8QHGyIshggtHoLj1STxZcv/RQ/RE7/5Dmv+PqBe25zi8jZEa631\nqm/x70alvSYIDqDkPN3gl2Mw2EPuNntVhFHUY5Ru1v8n+Lf2/a9QKYkCgYEA2OH6\neYcTn2UDaa9miCdIGE2emo2KX9o2YUnWTbutU97wi+RU9oX+mwQijGboH9i45N8w\nIXnrTHpE2JUxQ58oH17c14AIK9aStjSzo3CdszVA+KyaPxjwfBMez8ZcsflsAKE+\ngIGhSF8RCza+S3bUMCLulkrBzFntChQSnxnzKS8CgYEAqAxjGv3axH8M8UrU9WoP\nlnfcy9UOr1XP8/6uJWeZgtOYxRGJZYgDODJCVibqP3RTRNt6KTymzkbF6HySu4J9\nkbOVRIHgAu110kJeQielAAtG1YgAJNVwpF/YYGoseVGObcP0pxkB1VPPVgqU8b5N\n8y2ybzhe5sjLZskpPMc5yFECgYAh7+Jwx8kzROwuymqB3Zuzadnql0FS1GNz/8jP\n6xEpMZZ0XWtKFBeODCyXybaC3Te5YI84fcpq8ir5tQa7bRkrJ33pHriom2/joQWH\nCqUymJ+tCd0tCGsBD0DgBEsW8k+LHbAZDa++ElopZgyK5HI5gg3RaKtAncWwsQlk\n6fuZswKBgQCzWwwaNlLZIIeDSpbxND6zLZigOY2eoLRWbX98PiyIMrJPmoXotGKD\nlfz7xXDskspilKMmtlxkqDcqF+TqnSsdDcSEF8kLAorY6m1k9o/IU2X0oM/ywfPo\nltj5CTFgdJyYbDEkXe/69fNVO9LV0/Zgy0E8IB/An8llKmLJzcbruQ==\n-----END RSA PRIVATE KEY-----\n",
+      "ca": []
+    }
+  ]
+}
