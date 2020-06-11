@@ -1,0 +1,16 @@
+{
+  "name": "validator-orchestrator",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/validator-orchestrator"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {},
+  "inputValidation": {},
+  "requests": {},
+  "state": {},
+  "constants": {}
+}

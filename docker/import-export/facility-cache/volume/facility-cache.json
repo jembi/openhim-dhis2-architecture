@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "dhisUrl": "http://admin:district@dhis-web:8081",
+      "dhisPath": "/api/organisationUnits.json?fields=code,id,name",
+      "cronPattern": "00 00 12 * * *",
+      "cronTimezone": "Africa/Johannesburg"
+    }
+  ]
+}
