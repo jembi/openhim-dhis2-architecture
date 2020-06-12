@@ -44,10 +44,10 @@ services:
       - TRUST_SELF_SIGNED=true
 
   facility-cache:
-    image: jembi/facility-cache:v4.0.0
+    image: jembi/facility-cache:v5.0.0
     container_name: facility-cache
-    expose:
-      - 3500
+    ports:
+      - 3500:3500
     environment:
       - SERVER_PORT=3500
       - SERVER_HOSTNAME=facility-cache
