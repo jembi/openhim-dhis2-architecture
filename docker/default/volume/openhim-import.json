@@ -16,17 +16,6 @@
       "tokenType": null
     }
   ],
-  "Clients": [
-    {
-      "roles": [
-        "dhis2api"
-      ],
-      "clientID": "dhis2",
-      "name": "DHIS2",
-      "passwordAlgorithm": "sha512",
-      "passwordSalt": "d4c243b59e33ad86c4e402eb3d9055ae",
-      "passwordHash": "73cb96b138034d265646fc3f32fb102ab174a26ebe4bf8502c59cf99375a2140e797521b85000c5410fb07d92bca11e1c75d9d435d9aa14df148db354eebbab5"
-    }
-  ],
+  "Clients": [],
   "Channels": []
 }
