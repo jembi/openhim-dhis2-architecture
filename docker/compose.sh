@@ -35,7 +35,8 @@ elif [ "$1" == "destroy" ]; then
     read -p ">> " destroy
 
     if [[ "$destroy" =~ ^(y|Y)$ ]]; then
-        docker-compose -f "$composeFilePath"/docker-compose-services.yml -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml down -v
+        ./docker/import-export.sh destroy all
+        docker-compose -f "$composeFilePath"/docker-compose-services.yml -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml -f "$composeFilePath"/default/docker-compose-config.yml down -v
     fi
 else
     echo "Valid options are: init, up, down, or destroy"
