@@ -2,6 +2,13 @@
 
 composeFilePath=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
+waitForOpenHIMCoreAPI(){
+    openhimCoreIP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' openhim-core)
+    echo "Waiting for OpenHIM Core API to launch on 8080..."
+    until nc -z "$openhimCoreIP" 8080; do sleep 1; done
+    echo "OpenHIM Core API launched"
+}
+
 if [ "$1" == "init" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-dbs.yml up -d
 
@@ -11,7 +18,7 @@ if [ "$1" == "init" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/default/docker-compose-config.yml up -d
 
     # Allow openhim core configuration to be applied
-    sleep 20
+    waitForOpenHIMCoreAPI
 
     docker-compose -f "$composeFilePath"/docker-compose-services.yml up -d
 elif [ "$1" == "up" ]; then
@@ -23,7 +30,7 @@ elif [ "$1" == "up" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-apps.yml up -d
 
     # Wait for openhim to start up
-    sleep 10
+    waitForOpenHIMCoreAPI
 
     docker-compose -f "$composeFilePath"/docker-compose-services.yml up -d
 elif [ "$1" == "down" ]; then
