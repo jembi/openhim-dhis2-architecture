@@ -46,8 +46,8 @@ services:
   facility-cache:
     image: jembi/facility-cache:v5.0.0
     container_name: facility-cache
-    ports:
-      - 3500:3500
+    expose:
+      - 3500
     environment:
       - SERVER_PORT=3500
       - SERVER_HOSTNAME=facility-cache
