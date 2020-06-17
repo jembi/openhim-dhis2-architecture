@@ -1,9 +1,9 @@
 {
   "endpoints": [
     {
-      "name": "echoServer updated",
-      "path": "/test-updated",
-      "url": "http://localhost:8000",
+      "name": "DHIS2 Aggregate",
+      "path": "/aggregate",
+      "url": "http://admin:district@dhis-web:8080/api/dataValueSets",
       "paused": false,
       "parallel": 2,
       "updateTx": true,
