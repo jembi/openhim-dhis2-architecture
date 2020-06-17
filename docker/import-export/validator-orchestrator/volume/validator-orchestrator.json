@@ -122,7 +122,7 @@
             }
           },
           "stroke": {
-            "type": "string",
+            "type": "object",
             "properties": {
               "male": {
                 "type": "object",
@@ -175,8 +175,7 @@
               "id": {
                 "type": "string"
               }
-            },
-            "required": ["id"]
+            }
           }
         },
         "required": ["facility"]
@@ -201,19 +200,12 @@
       }
     ],
     "response": [
-      {
-        "primary": true,
-        "id": "DHIS dataSet",
-        "config": {
-          "method": "post",
-          "url": "http://file-queue:4002/api/dataSets"
-        }
-      }
+
     ]
   },
   "inputMapping": {
     "constants.dataSet": "dataSet",
-    "lookupRequests.facilityID": "orgUnit",
+    "lookupRequests.facility.id": "orgUnit",
     "requestBody.period": "period",
     "requestBody.completeDate": "completeDate",
 
