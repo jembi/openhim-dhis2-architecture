@@ -206,7 +206,7 @@
         "id": "DHIS dataSet",
         "config": {
           "method": "post",
-          "url": "http://file-queue:4003/api/dataValueSets"
+          "url": "http://file-queue:4003/aggregate"
         }
       }
     ]
