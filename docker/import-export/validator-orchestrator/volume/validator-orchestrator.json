@@ -166,14 +166,15 @@
           "facility": {
             "type": "object",
             "properties": {
-              "code": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
+              "organisationUnits": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {"type": "string"}
+                  },
+                  "required": ["id"]
+                }
               }
             }
           }
@@ -191,21 +192,28 @@
           "method": "get",
           "url": "http://facility-cache:3500/api/organisationUnits.json?fields=code,id,name",
           "params": {
-            "criteria": {
+            "filter": {
               "path": "payload.facilityCode",
-              "prefix": "code:"
+              "prefix": "code:eq:"
             }
           }
         }
       }
     ],
     "response": [
-
+      {
+        "primary": true,
+        "id": "DHIS dataSet",
+        "config": {
+          "method": "post",
+          "url": "http://file-queue:4003/api/dataValueSets"
+        }
+      }
     ]
   },
   "inputMapping": {
     "constants.dataSet": "dataSet",
-    "lookupRequests.facility.id": "orgUnit",
+    "lookupRequests.facility.organisationUnits[0].id": "orgUnit",
     "requestBody.period": "period",
     "requestBody.completeDate": "completeDate",
 
