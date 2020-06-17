@@ -1,0 +1,45 @@
+{
+  "name": "Part 2 of Creating a DHIS2 Tracked Entity Instance",
+  "endpoint": {
+    "method": "GET",
+    "pattern": "/createTrackedEntityInstance"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "constants.trackedEntityType": "trackedEntityType",
+    "query.orgUnit": "orgUnit",
+    "constants.dob": "attributes[0].attribute",
+    "query.dateOfBirth": "attributes[0].value",
+    "constants.idNumber": "attributes[1].attribute",
+    "query.rsaid": "attributes[1].value",
+    "constants.name": "attributes[2].attribute",
+    "query.name": "attributes[2].value",
+    "constants.surname": "attributes[3].attribute",
+    "query.surname": "attributes[3].value"
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "dhis-trackedEntityInstances",
+        "config": {
+          "method": "POST",
+          "url": "http://dhis-web:8080/api/trackedEntityInstances",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "dob": "GLTZkxUqepl",
+    "idNumber": "NWRtCWw116x",
+    "name": "OEjlQ9cmF2F",
+    "surname": "bDUGWw9H8Uc",
+    "trackedEntityType": "lXGgEp7UjA5"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "Create a DHIS2 Program Event Linked to a Tracked Entity Instance",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/createEvent"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "constants.program": "program",
+    "requestBody.event.programStage": "programStage",
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.trackedEntityInstance": "trackedEntityInstance",
+    "constants.status": "status",
+    "transforms.eventDate": {
+      "key": "eventDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    }
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "trackedEntityInstance": {
+            "type": "string"
+          },
+          "orgUnit": {
+            "type": "string"
+          },
+          "eventDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": ["orgUnit", "trackedEntityInstance"]
+      }
+    }
+  },
+  "inputTransforms": {
+    "eventDate": "$exists(requestBody.eventDate) ? requestBody.eventDate : $now()"
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "dhis-event",
+        "config": {
+          "method": "POST",
+          "url": "http://dhis-web:8080/api/events",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "program": "UrRxeuNqeco",
+    "status": "ACTIVE"
+  }
+}
