@@ -1,0 +1,94 @@
+{
+  "name": "encounter-event",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/encounter-event"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "facilityCode": { "type": "string", "pattern": "^[0-9]{6}$" },
+      "dateOfAdmission": { "type": "string", "format": "date" },
+      "dateOfDischarge": { "type": "string", "format": "date" },
+      "primaryDiagnosis": { "type": "string" },
+      "secondaryDiagnosis": { "type": "string" },
+      "typeOfDischarge": { "type": "string", "pattern": "^(alive|dead)$" },
+      "patientInsured": { "type": "string", "pattern": "^(yes|no)$" }
+    },
+    "required": [
+      "facilityCode",
+      "dateOfAdmission",
+      "dateOfDischarge",
+      "primaryDiagnosis",
+      "secondaryDiagnosis",
+      "typeOfDischarge",
+      "patientInsured"
+    ]
+  },
+  "inputMapping": {
+    "constants.program": "program",
+    "lookupRequests.facility.organisationUnits[0].id": "orgUnit",
+    "state.system.timestamps.endpointStart": "eventDate",
+
+    "constants.date-of-admission": "dataValues[0].dataElement",
+    "requestBody.dateOfAdmission": "dataValues[0].value",
+
+    "constants.date-of-discharge": "dataValues[1].dataElement",
+    "requestBody.dateOfDischarge": "dataValues[1].value",
+
+    "constants.primary-diag-code": "dataValues[2].dataElement",
+    "requestBody.primaryDiagnosis": "dataValues[2].value",
+
+    "constants.secondary-diag-code": "dataValues[3].dataElement",
+    "requestBody.secondaryDiagnosis": "dataValues[3].value",
+
+    "constants.type-of-discharge": "dataValues[4].dataElement",
+    "requestBody.typeOfDischarge": "dataValues[4].value",
+
+    "constants.patient-insured": "dataValues[5].dataElement",
+    "requestBody.patientInsured": "dataValues[5].value"
+  },
+  "requests": {
+    "lookup": [
+      {
+        "id": "facility",
+        "config": {
+          "method": "get",
+          "url": "http://facility-cache:3500/api/organisationUnits.json?fields=code,id,name",
+          "params": {
+            "filter": {
+              "path": "payload.facilityCode",
+              "prefix": "code:eq:"
+            }
+          }
+        }
+      }
+    ],
+    "response": [
+      {
+        "primary": true,
+        "id": "dhis-event",
+        "config": {
+          "method": "post",
+          "url": "http://file-queue:4003/tracker-event"
+        }
+      }
+    ]
+  },
+  "state": {},
+  "constants": {
+    "program": "RfqrMZiGXIs",
+    "data-elements": {
+      "primary-diag-code": "hMgJTVHQqgc",
+      "secondary-diag-code": "JdWumoxohfo",
+      "type-of-discharge": "krogPjfIVDw",
+      "patient-insured": "Khesied8rhg",
+      "date-of-admission": "yRgnKgPdT6x",
+      "date-of-discharge": "BmCQHdiZKZb"
+    }
+  }
+}
