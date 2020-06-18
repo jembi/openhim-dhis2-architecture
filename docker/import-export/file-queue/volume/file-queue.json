@@ -1,9 +1,19 @@
 {
   "endpoints": [
     {
-      "name": "echoServer updated",
-      "path": "/test-updated",
-      "url": "http://localhost:8000",
+      "name": "DHIS2 Aggregate",
+      "path": "/aggregate",
+      "url": "http://admin:district@dhis-web:8080/api/dataValueSets",
+      "paused": false,
+      "parallel": 2,
+      "updateTx": true,
+      "forwardMetadata": true,
+      "disableAutoChannelManagement": false
+    },
+    {
+      "name": "DHIS2 Tracker Event-based",
+      "path": "/tracker-event",
+      "url": "http://admin:district@dhis-web:8080/api/events",
       "paused": false,
       "parallel": 2,
       "updateTx": true,
