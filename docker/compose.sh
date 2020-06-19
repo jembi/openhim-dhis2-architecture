@@ -33,6 +33,18 @@ elif [ "$1" == "up" ]; then
     waitForOpenHIMCoreAPI
 
     docker-compose -f "$composeFilePath"/docker-compose-services.yml up -d
+elif [ "$1" == "dev" ]; then
+    docker-compose -f "$composeFilePath"/docker-compose-dbs.yml up -d
+
+    # Set up the replica set
+    "$composeFilePath"/initiateReplicaSet.sh
+
+    docker-compose -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/default/docker-compose-config.yml up -d
+
+    # Allow openhim core configuration to be applied
+    waitForOpenHIMCoreAPI
+
+    docker-compose -f "$composeFilePath"/docker-compose-services.yml -f "$composeFilePath"/docker-compose-dev.yml up -d
 elif [ "$1" == "down" ]; then
     docker-compose -f "$composeFilePath"/docker-compose-services.yml -f "$composeFilePath"/docker-compose-apps.yml -f "$composeFilePath"/docker-compose-dbs.yml stop
 elif [ "$1" == "destroy" ]; then

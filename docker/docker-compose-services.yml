@@ -42,6 +42,8 @@ services:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - SERVER_PORT=4003
       - TRUST_SELF_SIGNED=true
+    volumes:
+      - ./file-queue-mediator.json:/opt/openhim-mediator-file-queue/config/mediator.json
 
   facility-cache:
     image: jembi/facility-cache:v5.0.0
