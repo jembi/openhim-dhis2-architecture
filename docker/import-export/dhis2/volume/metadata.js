@@ -82,7 +82,9 @@ exports.exportMetaData = async () => {
   try {
     const response = await axios(options)
 
-    console.log(`Exporting DHIS2 data... Byte Length: ${response.headers['content-length']}`)
+    console.log(
+      `Exporting DHIS2 data... Byte Length: ${response.headers['content-length']}`
+    )
 
     // The gzip module requires a stream of data
     const streamResponseData = new PassThrough()
