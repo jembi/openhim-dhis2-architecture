@@ -1,4 +1,5 @@
 # OpenHIM - DHIS2 Architecture
+
 A genetic architecture for OpenHIM to DHIS2 integrations
 
 ## Architecture Overview
@@ -17,6 +18,12 @@ To set up the services, use the following command:
 
 ```sh
 ./deploy.sh init docker
+```
+
+To configure the apps and services, use the following command:
+
+```bash
+./docker/import-export.sh import
 ```
 
 To tear down the services, use the following command:
@@ -41,12 +48,12 @@ To completely remove all the services, use the following command:
 
 ### OpenHIM
 
-* Console url: <http://localhost:9000>
-* Username: **root@openhim.org**
-* Password: **password**
+- Console url: <http://localhost:9000>
+- Username: **root@openhim.org**
+- Password: **password**
 
 ### DHIS2
 
-* Url : <http://localhost:8081>
-* Username: **admin**
-* Password: **district**
+- Url : <http://localhost:8081>
+- Username: **admin**
+- Password: **district**

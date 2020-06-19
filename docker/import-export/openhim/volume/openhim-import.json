@@ -16,44 +16,6 @@
       "addAutoRewriteRules": true,
       "autoRetryEnabled": false,
       "autoRetryPeriodMinutes": 60,
-      "name": "echoServer",
-      "urlPattern": "^/test$",
-      "routes": [
-        {
-          "type": "http",
-          "status": "enabled",
-          "forwardAuthHeader": false,
-          "name": "echoServer",
-          "host": "localhost",
-          "path": "/test",
-          "port": 4003,
-          "secured": false,
-          "primary": true
-        }
-      ],
-      "updatedBy": {
-        "id": "5ee1fa4222583000123e7dc7",
-        "name": "Super User"
-      },
-      "alerts": [],
-      "rewriteUrlsConfig": []
-    },
-    {
-      "methods": [],
-      "type": "http",
-      "allow": ["file-queue"],
-      "whitelist": [],
-      "authType": "private",
-      "matchContentTypes": [],
-      "properties": [],
-      "txViewAcl": [],
-      "txViewFullAcl": [],
-      "txRerunAcl": [],
-      "status": "enabled",
-      "rewriteUrls": false,
-      "addAutoRewriteRules": true,
-      "autoRetryEnabled": false,
-      "autoRetryPeriodMinutes": 60,
       "name": "echoServer updated",
       "urlPattern": "^/test-updated$",
       "routes": [
@@ -208,11 +170,11 @@
           "type": "http",
           "status": "enabled",
           "forwardAuthHeader": false,
-          "name": "File queue",
+          "name": "Validator / Orchestrator",
           "secured": false,
-          "host": "localhost",
-          "port": 4002,
-          "path": "/event-based/inpatient-admissions",
+          "host": "validator-orchestrator",
+          "port": 3003,
+          "path": "/inpatient-admissions",
           "pathTransform": "",
           "primary": true,
           "username": "",
@@ -290,209 +252,14 @@
       "description": "Sends Pregnancy Entity data to DHIS2"
     }
   ],
-  "Clients": [],
-  "Mediators": [
+  "Clients": [
     {
-      "urn": "urn:mediator:validator-orchestrator",
-      "version": "1.0.0",
-      "name": "Mapping Mediator",
-      "description": "Generic OpenHIM Mapping Mediator",
-      "endpoints": [
-        {
-          "type": "http",
-          "status": "enabled",
-          "forwardAuthHeader": false,
-          "name": "Generic Mapping Mediator",
-          "host": "localhost",
-          "port": 3003
-        }
-      ],
-      "defaultChannelConfig": [],
-      "configDefs": [],
-      "_lastHeartbeat": "2020-06-11T09:40:18.744Z",
-      "_uptime": 432.014646429
-    },
-    {
-      "urn": "urn:uuid:a15c3d48-0686-4c9b-b375-f68d2f244a33",
-      "version": "3.0.0",
-      "name": "file-queue",
-      "description": "Async file queue mediator for the OpenHIM",
-      "defaultChannelConfig": [],
-      "endpoints": [
-        {
-          "type": "http",
-          "status": "enabled",
-          "forwardAuthHeader": false,
-          "name": "File queue",
-          "host": "localhost",
-          "path": "/workers/test",
-          "port": 4002,
-          "primary": true
-        }
-      ],
-      "configDefs": [
-        {
-          "values": [],
-          "template": [
-            {
-              "param": "name",
-              "displayName": "Name",
-              "description": "The name of the endpoint which is used for setting up the REST-like routes for the worker",
-              "type": "string"
-            },
-            {
-              "param": "path",
-              "displayName": "Path",
-              "description": "The path to use for handling incoming requests. A '*' may be used to match any number of characters in a path.",
-              "type": "string"
-            },
-            {
-              "param": "url",
-              "displayName": "Upstream URL",
-              "description": "The URL to send the files to when processing them from the queue.",
-              "type": "string"
-            },
-            {
-              "param": "paused",
-              "displayName": "Paused",
-              "description": "Whether or not the endpoint's worker should be paused by default. This must be a boolean value.",
-              "type": "bool"
-            },
-            {
-              "param": "parallel",
-              "displayName": "Parallel",
-              "description": "The number of files that the worker should process in parallel.",
-              "type": "number"
-            },
-            {
-              "param": "updateTx",
-              "displayName": "UpdateTx",
-              "description": "Whether or not to attempt to update the OpenHIM transaction once the message has been processed.",
-              "type": "bool"
-            },
-            {
-              "param": "forwardMetadata",
-              "displayName": "ForwardMetadata",
-              "description": "Whether or not to use the url, headers and HTTP method of the original request when it is forwarded. The path of the original request will be appended to the url property.",
-              "type": "bool"
-            },
-            {
-              "param": "disableAutoChannelManagement",
-              "displayName": "Disable auto channel management",
-              "description": "If disabled, the mediator won't automatically create and update channels as endpoint config is updated.",
-              "type": "bool"
-            }
-          ],
-          "param": "endpoints",
-          "displayName": "Endpoints",
-          "description": "Configure File Queue endpoints",
-          "type": "struct",
-          "array": true
-        }
-      ],
-      "config": {
-        "endpoints": [
-          {
-            "name": "echoServer updated",
-            "path": "/test-updated",
-            "url": "http://localhost:8000",
-            "paused": false,
-            "parallel": 2,
-            "updateTx": true,
-            "forwardMetadata": true,
-            "disableAutoChannelManagement": false
-          }
-        ]
-      },
-      "_lastHeartbeat": "2020-06-11T09:40:19.491Z",
-      "_uptime": 432.174,
-      "_configModifiedTS": "2020-06-11T09:37:12.029Z"
-    },
-    {
-      "urn": "urn:mediator:populator",
-      "version": "1.0.0",
-      "name": "Mapping Mediator",
-      "description": "Generic OpenHIM Mapping Mediator",
-      "endpoints": [
-        {
-          "type": "http",
-          "status": "enabled",
-          "forwardAuthHeader": false,
-          "name": "Generic Mapping Mediator",
-          "host": "localhost",
-          "port": 3003
-        }
-      ],
-      "defaultChannelConfig": [],
-      "configDefs": [],
-      "_lastHeartbeat": "2020-06-11T09:40:19.128Z",
-      "_uptime": 432.044782176
-    },
-    {
-      "urn": "urn:mediator:facility-cache",
-      "version": "4.0.0",
-      "name": "OpenHIM Facility Cache Mediator",
-      "description": "OpenHIM Mediator for facility cache",
-      "endpoints": [
-        {
-          "type": "http",
-          "status": "enabled",
-          "forwardAuthHeader": false,
-          "name": "Facility Cache Mediator",
-          "host": "localhost",
-          "port": 8001
-        }
-      ],
-      "configDefs": [
-        {
-          "values": [],
-          "template": [
-            {
-              "param": "dhisUrl",
-              "displayName": "DHIS Url",
-              "description": "DHIS url",
-              "type": "string"
-            },
-            {
-              "param": "dhisPath",
-              "displayName": "DHIS Path",
-              "description": "DHIS sql view path. NB! Please ensure that no two DHIS Path's are the same, as the cache will be overwritten by the other",
-              "type": "string"
-            },
-            {
-              "param": "cronPattern",
-              "displayName": "Cron Pattern",
-              "description": "Cron pattern",
-              "type": "string"
-            },
-            {
-              "param": "cronTimezone",
-              "displayName": "Cron Timezone",
-              "description": "Timezone of the cron",
-              "type": "string"
-            }
-          ],
-          "param": "routes",
-          "displayName": "Routes",
-          "description": "Locations of facilities to cache",
-          "type": "struct",
-          "array": true
-        }
-      ],
-      "config": {
-        "routes": [
-          {
-            "dhisUrl": "http://admin:district@dhis-web:8081",
-            "dhisPath": "/api/organisationUnits.json?fields=code,id,name",
-            "cronPattern": "00 00 12 * * *",
-            "cronTimezone": "Africa/Johannesburg"
-          }
-        ]
-      },
-      "defaultChannelConfig": [],
-      "_lastHeartbeat": "2020-06-11T09:40:19.638Z",
-      "_uptime": 432.386,
-      "_configModifiedTS": "2020-06-11T09:37:14.221Z"
+      "roles": ["dhis2"],
+      "clientID": "test",
+      "name": "test",
+      "passwordAlgorithm": "sha512",
+      "passwordSalt": "47effe55403a1823ae7a5651beba87bf",
+      "passwordHash": "9997d294392dc65929e5a0bd10ae70eed4b619729da3ed1efb5f48a1976b20fc32fd16b9191ce8d68f30d85fc21fc2facdc006250c28c0cd5f067ad474d3878c"
     }
   ],
   "Users": [

@@ -13,6 +13,8 @@ if [ "$TARGET" == "docker" ]; then
         ./docker/compose.sh init
     elif [ "$COMMAND" == "up" ]; then
         ./docker/compose.sh up
+    elif [ "$COMMAND" == "dev" ]; then
+        ./docker/compose.sh dev
     elif [ "$COMMAND" == "down" ]; then
         ./docker/compose.sh down
     elif [ "$COMMAND" == "destroy" ]; then

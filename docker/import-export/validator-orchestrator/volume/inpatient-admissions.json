@@ -1,8 +1,8 @@
 {
-  "name": "encounter-event",
+  "name": "inpatient-admissions",
   "endpoint": {
     "method": "POST",
-    "pattern": "/encounter-event"
+    "pattern": "/inpatient-admissions"
   },
   "transformation": {
     "input": "JSON",
@@ -11,45 +11,50 @@
   "inputValidation": {
     "type": "object",
     "properties": {
-      "facilityCode": { "type": "string", "pattern": "^[0-9]{6}$" },
-      "dateOfAdmission": { "type": "string", "format": "date" },
-      "dateOfDischarge": { "type": "string", "format": "date" },
-      "primaryDiagnosis": { "type": "string" },
-      "secondaryDiagnosis": { "type": "string" },
-      "typeOfDischarge": { "type": "string", "pattern": "^(alive|dead)$" },
-      "patientInsured": { "type": "string", "pattern": "^(yes|no)$" }
-    },
-    "required": [
-      "facilityCode",
-      "dateOfAdmission",
-      "dateOfDischarge",
-      "primaryDiagnosis",
-      "secondaryDiagnosis",
-      "typeOfDischarge",
-      "patientInsured"
-    ]
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "facilityCode": { "type": "string", "pattern": "^[0-9]{6}$" },
+          "dateOfAdmission": { "type": "string", "format": "date" },
+          "dateOfDischarge": { "type": "string", "format": "date" },
+          "primaryDiagnosis": { "type": "string" },
+          "secondaryDiagnosis": { "type": "string" },
+          "typeOfDischarge": { "type": "string", "enum": ["alive", "dead"] },
+          "patientInsured": { "type": "string", "enum": ["yes", "no"] }
+        },
+        "required": [
+          "facilityCode",
+          "dateOfAdmission",
+          "dateOfDischarge",
+          "primaryDiagnosis",
+          "secondaryDiagnosis",
+          "typeOfDischarge",
+          "patientInsured"
+        ]
+      }
+    }
   },
   "inputMapping": {
     "constants.program": "program",
     "lookupRequests.facility.organisationUnits[0].id": "orgUnit",
     "state.system.timestamps.endpointStart": "eventDate",
 
-    "constants.date-of-admission": "dataValues[0].dataElement",
+    "constants.data-elements.date-of-admission": "dataValues[0].dataElement",
     "requestBody.dateOfAdmission": "dataValues[0].value",
 
-    "constants.date-of-discharge": "dataValues[1].dataElement",
+    "constants.data-elements.date-of-discharge": "dataValues[1].dataElement",
     "requestBody.dateOfDischarge": "dataValues[1].value",
 
-    "constants.primary-diag-code": "dataValues[2].dataElement",
+    "constants.data-elements.primary-diag-code": "dataValues[2].dataElement",
     "requestBody.primaryDiagnosis": "dataValues[2].value",
 
-    "constants.secondary-diag-code": "dataValues[3].dataElement",
+    "constants.data-elements.secondary-diag-code": "dataValues[3].dataElement",
     "requestBody.secondaryDiagnosis": "dataValues[3].value",
 
-    "constants.type-of-discharge": "dataValues[4].dataElement",
+    "constants.data-elements.type-of-discharge": "dataValues[4].dataElement",
     "requestBody.typeOfDischarge": "dataValues[4].value",
 
-    "constants.patient-insured": "dataValues[5].dataElement",
+    "constants.data-elements.patient-insured": "dataValues[5].dataElement",
     "requestBody.patientInsured": "dataValues[5].value"
   },
   "requests": {
