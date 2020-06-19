@@ -1,4 +1,5 @@
 # OpenHIM - DHIS2 Architecture
+
 A genetic architecture for OpenHIM to DHIS2 integrations
 
 ## Architecture Overview
@@ -41,12 +42,40 @@ To completely remove all the services, use the following command:
 
 ### OpenHIM
 
-* Console url: <http://localhost:9000>
-* Username: **root@openhim.org**
-* Password: **password**
+- Console url: <http://localhost:9000>
+- Username: **root@openhim.org**
+- Password: **password**
 
 ### DHIS2
 
-* Url : <http://localhost:8081>
-* Username: **admin**
-* Password: **district**
+- Url : <http://localhost:8081>
+- Username: **admin**
+- Password: **district**
+
+## DHIS2 Message Structures
+
+Useful Links:
+
+- [DHIS2 Tracked Entity Docs](https://docs.dhis2.org/2.34/en/dhis2_developer_manual/web-api.html#tracked-entity-instance-management)
+
+### Tracked Entity
+
+POST or PUT data to `/api/trackedEntityInstances`
+
+#### Tracked Entity Template
+
+```json
+{
+  "trackedEntity": "tracked-entity-id",
+  "orgUnit": "org-unit-id",
+  "geometry": "<Geo JSON>",
+  "attributes": [{
+    "attribute": "attribute-id",
+    "value": "attribute-value"
+  }]
+}
+```
+
+### Aggregate
+
+### Event
