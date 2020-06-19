@@ -3,7 +3,7 @@
     {
       "methods": ["POST"],
       "type": "http",
-      "allow": ["dhis2", "dhis2api"],
+      "allow": ["dhis2"],
       "whitelist": [],
       "authType": "private",
       "matchContentTypes": [],
@@ -54,7 +54,7 @@
     {
       "methods": ["POST"],
       "type": "http",
-      "allow": ["dhis2", "dhis2api"],
+      "allow": ["dhis2"],
       "whitelist": [],
       "authType": "private",
       "matchContentTypes": [],
@@ -105,7 +105,7 @@
     {
       "methods": ["POST"],
       "type": "http",
-      "allow": ["dhis2", "dhis2api"],
+      "allow": ["dhis2"],
       "whitelist": [],
       "authType": "private",
       "matchContentTypes": [],
@@ -157,8 +157,8 @@
   "Clients": [
     {
       "roles": ["dhis2"],
-      "clientID": "test",
-      "name": "test",
+      "clientID": "client",
+      "name": "client",
       "passwordAlgorithm": "sha512",
       "passwordSalt": "47effe55403a1823ae7a5651beba87bf",
       "passwordHash": "9997d294392dc65929e5a0bd10ae70eed4b619729da3ed1efb5f48a1976b20fc32fd16b9191ce8d68f30d85fc21fc2facdc006250c28c0cd5f067ad474d3878c"
