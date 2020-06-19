@@ -7,7 +7,7 @@
       "paused": false,
       "parallel": 2,
       "updateTx": true,
-      "forwardMetadata": true,
+      "forwardMetadata": false,
       "disableAutoChannelManagement": true
     },
     {
@@ -17,7 +17,7 @@
       "paused": false,
       "parallel": 2,
       "updateTx": true,
-      "forwardMetadata": true,
+      "forwardMetadata": false,
       "disableAutoChannelManagement": true
     }
   ]
