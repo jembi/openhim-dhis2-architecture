@@ -7,8 +7,8 @@
       "paused": false,
       "parallel": 2,
       "updateTx": true,
-      "forwardMetadata": true,
-      "disableAutoChannelManagement": false
+      "forwardMetadata": false,
+      "disableAutoChannelManagement": true
     },
     {
       "name": "DHIS2 Tracker Event-based",
@@ -17,8 +17,8 @@
       "paused": false,
       "parallel": 2,
       "updateTx": true,
-      "forwardMetadata": true,
-      "disableAutoChannelManagement": false
+      "forwardMetadata": false,
+      "disableAutoChannelManagement": true
     }
   ]
 }

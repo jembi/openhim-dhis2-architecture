@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  validator-orchestrator:
+    ports:
+      - "3003:3003"
+  populator:
+    ports:
+      - "3004:3003"
+  file-queue:
+    ports:
+      - "4002:4002"
+  facility-cache:
+    ports:
+      - "3500:3500"
