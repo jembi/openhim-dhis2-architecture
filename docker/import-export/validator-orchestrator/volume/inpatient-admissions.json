@@ -87,7 +87,7 @@
         "id": "dhis-event",
         "config": {
           "method": "post",
-          "url": "http://file-queue:4003/tracker-event"
+          "url": "http://file-queue:4002/tracker-event"
         }
       }
     ]
