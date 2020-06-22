@@ -3,7 +3,7 @@
     {
       "name": "DHIS2 Tracker Entity-based",
       "path": "/tracker-entity-queue",
-      "url": "http://validator-orchestrator:3003/validator-orchestrator",
+      "url": "http://populator:3003/populator",
       "paused": false,
       "parallel": 2,
       "updateTx": true,
