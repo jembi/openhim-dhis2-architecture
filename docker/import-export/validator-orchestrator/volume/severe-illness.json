@@ -1,8 +1,8 @@
 {
-  "name": "validator-orchestrator",
+  "name": "severe-illness-counts",
   "endpoint": {
     "method": "POST",
-    "pattern": "/validator-orchestrator"
+    "pattern": "/severe-illness"
   },
   "transformation": {
     "input": "JSON",
@@ -155,10 +155,9 @@
                 }
               }
             }
-          },
-          "completeDate": {"type": "string", "format": "date"}
+          }
         },
-        "required": ["period", "facilityCode", "completeDate"]
+        "required": ["period", "facilityCode"]
       },
       "lookupRequests": {
         "type": "object",
@@ -190,7 +189,7 @@
         "id": "facility",
         "config": {
           "method": "get",
-          "url": "http://facility-cache:3500/api/organisationUnits.json?fields=code,id,name",
+          "url": "http://facility-cache:3500/api/organisationUnits.json",
           "params": {
             "filter": {
               "path": "payload.facilityCode",
