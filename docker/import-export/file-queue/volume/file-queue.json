@@ -1,9 +1,9 @@
 {
   "endpoints": [
     {
-      "name": "DHIS2 Aggregate",
-      "path": "/aggregate",
-      "url": "http://admin:district@dhis-web:8080/api/dataValueSets",
+      "name": "DHIS2 Tracker Entity-based",
+      "path": "/tracker-entity-queue",
+      "url": "http://populator:3003/populator",
       "paused": false,
       "parallel": 2,
       "updateTx": true,
@@ -14,6 +14,16 @@
       "name": "DHIS2 Tracker Event-based",
       "path": "/tracker-event",
       "url": "http://admin:district@dhis-web:8080/api/events",
+      "paused": false,
+      "parallel": 2,
+      "updateTx": true,
+      "forwardMetadata": false,
+      "disableAutoChannelManagement": true
+    },
+    {
+      "name": "DHIS2 Aggregate",
+      "path": "/aggregate",
+      "url": "http://admin:district@dhis-web:8080/api/dataValueSets",
       "paused": false,
       "parallel": 2,
       "updateTx": true,
