@@ -1,0 +1,746 @@
+{
+  "name": "validator-orchestrator",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/validator-orchestrator"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "facilityCode": {"type": "string"},
+          "period": {"type": "string"},
+          "hiv": {
+            "type": "object",
+            "properties": {
+              "male": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "female": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "other": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              }
+            }
+          },
+          "tb": {
+            "type": "object",
+            "properties": {
+              "male": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "female": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "other": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              }
+            }
+          },
+          "cancer": {
+            "type": "object",
+            "properties": {
+              "male": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "female": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "other": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              }
+            }
+          },
+          "stroke": {
+            "type": "object",
+            "properties": {
+              "male": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "female": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              },
+              "other": {
+                "type": "object",
+                "properties": {
+                  "0-7": {"type": "number"},
+                  "8-16": {"type": "number"},
+                  "17-25": {"type": "number"},
+                  "26-54": {"type": "number"},
+                  "55+": {"type": "number"}
+                }
+              }
+            }
+          },
+          "completeDate": {"type": "string", "format": "date"}
+        },
+        "required": ["period", "facilityCode", "completeDate"]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "facility": {
+            "type": "object",
+            "properties": {
+              "organisationUnits": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {"type": "string"}
+                  },
+                  "required": ["id"]
+                }
+              }
+            }
+          }
+        },
+        "required": ["facility"]
+      }
+    },
+    "required": ["lookupRequests", "requestBody"]
+  },
+  "requests": {
+    "lookup": [
+      {
+        "id": "facility",
+        "config": {
+          "method": "get",
+          "url": "http://facility-cache:3500/api/organisationUnits.json?fields=code,id,name",
+          "params": {
+            "filter": {
+              "path": "payload.facilityCode",
+              "prefix": "code:eq:"
+            }
+          }
+        }
+      }
+    ],
+    "response": [
+      {
+        "primary": true,
+        "id": "DHIS dataSet",
+        "config": {
+          "method": "post",
+          "url": "http://file-queue:4003/aggregate"
+        }
+      }
+    ]
+  },
+  "inputMapping": {
+    "constants.dataSet": "dataSet",
+    "lookupRequests.facility.organisationUnits[0].id": "orgUnit",
+    "requestBody.period": "period",
+    "requestBody.completeDate": "completeDate",
+
+    "constants.dataElementsCombos.hiv.coc.female.0-7.dataElementID": "dataValues[0].dataElement",
+    "constants.dataElementsCombos.hiv.coc.female.0-7.categoryOptionComboUID": "dataValues[0].categoryOptionCombo",
+    "requestBody.hiv.female.0-7": "dataValues[0].value",
+
+    "constants.dataElementsCombos.hiv.coc.female.8-16.dataElementID": "dataValues[1].dataElement",
+    "constants.dataElementsCombos.hiv.coc.female.8-16.categoryOptionComboUID": "dataValues[1].categoryOptionCombo",
+    "requestBody.hiv.female.8-16": "dataValues[1].value",
+
+    "constants.dataElementsCombos.hiv.coc.female.17-25.dataElementID": "dataValues[2].dataElement",
+    "constants.dataElementsCombos.hiv.coc.female.17-25.categoryOptionComboUID": "dataValues[2].categoryOptionCombo",
+    "requestBody.hiv.female.17-25": "dataValues[2].value",
+
+    "constants.dataElementsCombos.hiv.coc.female.26-54.dataElementID": "dataValues[3].dataElement",
+    "constants.dataElementsCombos.hiv.coc.female.26-54.categoryOptionComboUID": "dataValues[3].categoryOptionCombo",
+    "requestBody.hiv.female.26-54": "dataValues[3].value",
+
+    "constants.dataElementsCombos.hiv.coc.female.55+.dataElementID": "dataValues[4].dataElement",
+    "constants.dataElementsCombos.hiv.coc.female.55+.categoryOptionComboUID": "dataValues[4].categoryOptionCombo",
+    "requestBody.hiv.female.55+": "dataValues[4].value",
+
+    "constants.dataElementsCombos.hiv.coc.male.0-7.dataElementID": "dataValues[5].dataElement",
+    "constants.dataElementsCombos.hiv.coc.male.0-7.categoryOptionComboUID": "dataValues[5].categoryOptionCombo",
+    "requestBody.hiv.male.0-7": "dataValues[5].value",
+
+    "constants.dataElementsCombos.hiv.coc.male.8-16.dataElementID": "dataValues[6].dataElement",
+    "constants.dataElementsCombos.hiv.coc.male.8-16.categoryOptionComboUID": "dataValues[6].categoryOptionCombo",
+    "requestBody.hiv.male.8-16": "dataValues[6].value",
+
+    "constants.dataElementsCombos.hiv.coc.male.17-25.dataElementID": "dataValues[7].dataElement",
+    "constants.dataElementsCombos.hiv.coc.male.17-25.categoryOptionComboUID": "dataValues[7].categoryOptionCombo",
+    "requestBody.hiv.male.17-25": "dataValues[7].value",
+
+    "constants.dataElementsCombos.hiv.coc.male.26-54.dataElementID": "dataValues[8].dataElement",
+    "constants.dataElementsCombos.hiv.coc.male.26-54.categoryOptionComboUID": "dataValues[8].categoryOptionCombo",
+    "requestBody.hiv.male.26-54": "dataValues[8].value",
+
+    "constants.dataElementsCombos.hiv.coc.male.55+.dataElementID": "dataValues[9].dataElement",
+    "constants.dataElementsCombos.hiv.coc.male.55+.categoryOptionComboUID": "dataValues[9].categoryOptionCombo",
+    "requestBody.hiv.male.55+": "dataValues[9].value",
+
+    "constants.dataElementsCombos.hiv.coc.other.0-7.dataElementID": "dataValues[10].dataElement",
+    "constants.dataElementsCombos.hiv.coc.other.0-7.categoryOptionComboUID": "dataValues[10].categoryOptionCombo",
+    "requestBody.hiv.other.0-7": "dataValues[10].value",
+
+    "constants.dataElementsCombos.hiv.coc.other.8-16.dataElement": "dataValues[11].dataElement",
+    "constants.dataElementsCombos.hiv.coc.other.8-16.categoryOptionComboUID": "dataValues[11].categoryOptionCombo",
+    "requestBody.hiv.other.8-16": "dataValues[11].value",
+
+    "constants.dataElementsCombos.hiv.coc.other.17-25.dataElementID": "dataValues[12].dataElement",
+    "constants.dataElementsCombos.hiv.coc.other.17-25.categoryOptionComboUID": "dataValues[12].categoryOptionCombo",
+    "requestBody.hiv.other.17-25": "dataValues[12].value",
+
+    "constants.dataElementsCombos.hiv.coc.other.26-54.dataElementID": "dataValues[13].dataElement",
+    "constants.dataElementsCombos.hiv.coc.other.26-54.categoryOptionComboUID": "dataValues[13].categoryOptionCombo",
+    "requestBody.hiv.other.26-54": "dataValues[13].value",
+
+    "constants.dataElementsCombos.hiv.coc.other.55+.dataElementID": "dataValues[14].dataElement",
+    "constants.dataElementsCombos.hiv.coc.other.55+.categoryOptionComboUID": "dataValues[14].categoryOptionCombo",
+    "requestBody.hiv.other.55+": "dataValues[14].value",
+
+    "constants.dataElementsCombos.cancer.coc.female.0-7.dataElementID": "dataValues[15].dataElement",
+    "constants.dataElementsCombos.cancer.coc.female.0-7.categoryOptionComboUID": "dataValues[15].categoryOptionCombo",
+    "requestBody.cancer.female.0-7": "dataValues[15].value",
+
+    "constants.dataElementsCombos.cancer.coc.female.8-16.dataElementID": "dataValues[16].dataElement",
+    "constants.dataElementsCombos.cancer.coc.female.8-16.categoryOptionComboUID": "dataValues[16].categoryOptionCombo",
+    "requestBody.cancer.female.8-16": "dataValues[16].value",
+
+    "constants.dataElementsCombos.cancer.coc.female.17-25.dataElementID": "dataValues[17].dataElement",
+    "constants.dataElementsCombos.cancer.coc.female.17-25.categoryOptionComboUID": "dataValues[17].categoryOptionCombo",
+    "requestBody.cancer.female.17-25": "dataValues[17].value",
+
+    "constants.dataElementsCombos.cancer.coc.female.26-54.dataElementID": "dataValues[18].dataElement",
+    "constants.dataElementsCombos.cancer.coc.female.26-54.categoryOptionComboUID": "dataValues[18].categoryOptionCombo",
+    "requestBody.cancer.female.26-54": "dataValues[18].value",
+
+    "constants.dataElementsCombos.cancer.coc.female.55+.dataElementID": "dataValues[19].dataElement",
+    "constants.dataElementsCombos.cancer.coc.female.55+.categoryOptionComboUID": "dataValues[19].categoryOptionCombo",
+    "requestBody.cancer.female.55+": "dataValues[19].value",
+
+    "constants.dataElementsCombos.cancer.coc.male.0-7.dataElementID": "dataValues[20].dataElement",
+    "constants.dataElementsCombos.cancer.coc.male.0-7.categoryOptionComboUID": "dataValues[20].categoryOptionCombo",
+    "requestBody.cancer.male.0-7": "dataValues[20].value",
+
+    "constants.dataElementsCombos.cancer.coc.male.8-16.dataElementID": "dataValues[21].dataElement",
+    "constants.dataElementsCombos.cancer.coc.male.8-16.categoryOptionComboUID": "dataValues[21].categoryOptionCombo",
+    "requestBody.cancer.male.8-16": "dataValues[21].value",
+
+    "constants.dataElementsCombos.cancer.coc.male.17-25.dataElementID": "dataValues[22].dataElement",
+    "constants.dataElementsCombos.cancer.coc.male.17-25.categoryOptionComboUID": "dataValues[22].categoryOptionCombo",
+    "requestBody.cancer.male.17-25": "dataValues[22].value",
+
+    "constants.dataElementsCombos.cancer.coc.male.26-54.dataElementID": "dataValues[23].dataElement",
+    "constants.dataElementsCombos.cancer.coc.male.26-54.categoryOptionComboUID": "dataValues[23].categoryOptionCombo",
+    "requestBody.cancer.male.26-54": "dataValues[23].value",
+
+    "constants.dataElementsCombos.cancer.coc.male.55+.dataElementID": "dataValues[24].dataElement",
+    "constants.dataElementsCombos.cancer.coc.male.55+.categoryOptionComboUID": "dataValues[24].categoryOptionCombo",
+    "requestBody.cancer.male.55+": "dataValues[24].value",
+
+    "constants.dataElementsCombos.cancer.coc.other.0-7.dataElementID": "dataValues[25].dataElement",
+    "constants.dataElementsCombos.cancer.coc.other.0-7.categoryOptionComboUID": "dataValues[25].categoryOptionCombo",
+    "requestBody.cancer.other.0-7": "dataValues[25].value",
+
+    "constants.dataElementsCombos.cancer.coc.other.8-16.dataElementID": "dataValues[26].dataElement",
+    "constants.dataElementsCombos.cancer.coc.other.8-16.categoryOptionComboUID": "dataValues[26].categoryOptionCombo",
+    "requestBody.cancer.other.8-16": "dataValues[26].value",
+
+    "constants.dataElementsCombos.cancer.coc.other.17-25.dataElementID": "dataValues[27].dataElement",
+    "constants.dataElementsCombos.cancer.coc.other.17-25.categoryOptionComboUID": "dataValues[27].categoryOptionCombo",
+    "requestBody.cancer.other.17-25": "dataValues[27].value",
+
+    "constants.dataElementsCombos.cancer.coc.other.26-54.dataElementID": "dataValues[28].dataElement",
+    "constants.dataElementsCombos.cancer.coc.other.26-54.categoryOptionComboUID": "dataValues[28].categoryOptionCombo",
+    "requestBody.cancer.other.26-54": "dataValues[28].value",
+
+    "constants.dataElementsCombos.cancer.coc.other.55+.dataElementID": "dataValues[29].dataElement",
+    "constants.dataElementsCombos.cancer.coc.other.55+.categoryOptionComboUID": "dataValues[29].categoryOptionCombo",
+    "requestBody.cancer.other.55+": "dataValues[29].value",
+
+    "constants.dataElementsCombos.tb.coc.female.0-7.dataElementID": "dataValues[30].dataElement",
+    "constants.dataElementsCombos.tb.coc.female.0-7.categoryOptionComboUID": "dataValues[30].categoryOptionCombo",
+    "requestBody.tb.female.0-7": "dataValues[30].value",
+
+    "constants.dataElementsCombos.tb.coc.female.8-16.dataElementID": "dataValues[31].dataElement",
+    "constants.dataElementsCombos.tb.coc.female.8-16.categoryOptionComboUID": "dataValues[31].categoryOptionCombo",
+    "requestBody.tb.female.8-16": "dataValues[31].value",
+
+    "constants.dataElementsCombos.tb.coc.female.17-25.dataElementID": "dataValues[32].dataElement",
+    "constants.dataElementsCombos.tb.coc.female.17-25.categoryOptionComboUID": "dataValues[32].categoryOptionCombo",
+    "requestBody.tb.female.17-25": "dataValues[32].value",
+
+    "constants.dataElementsCombos.tb.coc.female.26-54.dataElementID": "dataValues[33].dataElement",
+    "constants.dataElementsCombos.tb.coc.female.26-54.categoryOptionComboUID": "dataValues[33].categoryOptionCombo",
+    "requestBody.tb.female.26-54": "dataValues[33].value",
+
+    "constants.dataElementsCombos.tb.coc.female.55+.dataElementID": "dataValues[34].dataElement",
+    "constants.dataElementsCombos.tb.coc.female.55+.categoryOptionComboUID": "dataValues[34].categoryOptionCombo",
+    "requestBody.tb.female.55+": "dataValues[34].value",
+
+    "constants.dataElementsCombos.tb.coc.male.0-7.dataElementID": "dataValues[35].dataElement",
+    "constants.dataElementsCombos.tb.coc.male.0-7.categoryOptionComboUID": "dataValues[35].categoryOptionCombo",
+    "requestBody.tb.male.0-7": "dataValues[35].value",
+
+    "constants.dataElementsCombos.tb.coc.male.8-16.dataElementID": "dataValues[36].dataElement",
+    "constants.dataElementsCombos.tb.coc.male.8-16.categoryOptionComboUID": "dataValues[36].categoryOptionCombo",
+    "requestBody.tb.male.8-16": "dataValues[36].value",
+
+    "constants.dataElementsCombos.tb.coc.male.17-25.dataElementID": "dataValues[37].dataElement",
+    "constants.dataElementsCombos.tb.coc.male.17-25.categoryOptionComboUID": "dataValues[37].categoryOptionCombo",
+    "requestBody.tb.male.17-25": "dataValues[37].value",
+
+    "constants.dataElementsCombos.tb.coc.male.26-54.dataElementID": "dataValues[38].dataElement",
+    "constants.dataElementsCombos.tb.coc.male.26-54.categoryOptionComboUID": "dataValues[38].categoryOptionCombo",
+    "requestBody.tb.male.26-54": "dataValues[38].value",
+
+    "constants.dataElementsCombos.tb.coc.male.55+.dataElementID": "dataValues[39].dataElement",
+    "constants.dataElementsCombos.tb.coc.male.55+.categoryOptionComboUID": "dataValues[39].categoryOptionCombo",
+    "requestBody.tb.male.55+": "dataValues[39].value",
+
+    "constants.dataElementsCombos.tb.coc.other.0-7.dataElementID": "dataValues[40].dataElement",
+    "constants.dataElementsCombos.tb.coc.other.0-7.categoryOptionComboUID": "dataValues[40].categoryOptionCombo",
+    "requestBody.tb.other.0-7": "dataValues[40].value",
+
+    "constants.dataElementsCombos.tb.coc.other.8-16.dataElementID": "dataValues[41].dataElement",
+    "constants.dataElementsCombos.tb.coc.other.8-16.categoryOptionComboUID": "dataValues[41].categoryOptionCombo",
+    "requestBody.tb.other.8-16": "dataValues[41].value",
+
+    "constants.dataElementsCombos.tb.coc.other.17-25.dataElementID": "dataValues[42].dataElement",
+    "constants.dataElementsCombos.tb.coc.other.17-25.categoryOptionComboUID": "dataValues[42].categoryOptionCombo",
+    "requestBody.tb.other.17-25": "dataValues[42].value",
+
+    "constants.dataElementsCombos.tb.coc.other.26-54.dataElementID": "dataValues[43].dataElement",
+    "constants.dataElementsCombos.tb.coc.other.26-54.categoryOptionComboUID": "dataValues[43].categoryOptionCombo",
+    "requestBody.tb.other.26-54": "dataValues[43].value",
+
+    "constants.dataElementsCombos.tb.coc.other.55+.dataElementID": "dataValues[44].dataElement",
+    "constants.dataElementsCombos.tb.coc.other.55+.categoryOptionComboUID": "dataValues[44].categoryOptionCombo",
+    "requestBody.tb.other.55+": "dataValues[44].value",
+
+    "constants.dataElementsCombos.stroke.coc.female.0-7.dataElementID": "dataValues[45].dataElement",
+    "constants.dataElementsCombos.stroke.coc.female.0-7.categoryOptionComboUID": "dataValues[45].categoryOptionCombo",
+    "requestBody.stroke.female.0-7": "dataValues[45].value",
+
+    "constants.dataElementsCombos.stroke.coc.female.8-16.dataElementID": "dataValues[46].dataElement",
+    "constants.dataElementsCombos.stroke.coc.female.8-16.categoryOptionComboUID": "dataValues[46].categoryOptionCombo",
+    "requestBody.stroke.female.8-16": "dataValues[46].value",
+
+    "constants.dataElementsCombos.stroke.coc.female.17-25.dataElementID": "dataValues[47].dataElement",
+    "constants.dataElementsCombos.stroke.coc.female.17-25.categoryOptionComboUID": "dataValues[47].categoryOptionCombo",
+    "requestBody.stroke.female.17-25": "dataValues[47].value",
+
+    "constants.dataElementsCombos.stroke.coc.female.26-54.dataElementID": "dataValues[48].dataElement",
+    "constants.dataElementsCombos.stroke.coc.female.26-54.categoryOptionComboUID": "dataValues[48].categoryOptionCombo",
+    "requestBody.stroke.female.26-54": "dataValues[48].value",
+
+    "constants.dataElementsCombos.stroke.coc.female.55+.dataElementID": "dataValues[49].dataElement",
+    "constants.dataElementsCombos.stroke.coc.female.55+.categoryOptionComboUID": "dataValues[49].categoryOptionCombo",
+    "requestBody.stroke.female.55+": "dataValues[49].value",
+
+    "constants.dataElementsCombos.stroke.coc.male.0-7.dataElementID": "dataValues[50].dataElement",
+    "constants.dataElementsCombos.stroke.coc.male.0-7.categoryOptionComboUID": "dataValues[50].categoryOptionCombo",
+    "requestBody.stroke.male.0-7": "dataValues[50].value",
+
+    "constants.dataElementsCombos.stroke.coc.male.8-16.dataElementID": "dataValues[51].dataElement",
+    "constants.dataElementsCombos.stroke.coc.male.8-16.categoryOptionComboUID": "dataValues[51].categoryOptionCombo",
+    "requestBody.stroke.male.8-16": "dataValues[51].value",
+
+    "constants.dataElementsCombos.stroke.coc.male.17-25.dataElementID": "dataValues[52].dataElement",
+    "constants.dataElementsCombos.stroke.coc.male.17-25.categoryOptionComboUID": "dataValues[52].categoryOptionCombo",
+    "requestBody.stroke.male.17-25": "dataValues[52].value",
+
+    "constants.dataElementsCombos.stroke.coc.male.26-54.dataElementID": "dataValues[53].dataElement",
+    "constants.dataElementsCombos.stroke.coc.male.26-54.categoryOptionComboUID": "dataValues[53].categoryOptionCombo",
+    "requestBody.stroke.male.26-54": "dataValues[53].value",
+
+    "constants.dataElementsCombos.stroke.coc.male.55+.dataElementID": "dataValues[54].dataElement",
+    "constants.dataElementsCombos.stroke.coc.male.55+.categoryOptionComboUID": "dataValues[54].categoryOptionCombo",
+    "requestBody.stroke.male.55+": "dataValues[54].value",
+
+    "constants.dataElementsCombos.stroke.coc.other.0-7.dataElementID": "dataValues[55].dataElement",
+    "constants.dataElementsCombos.stroke.coc.other.0-7.categoryOptionComboUID": "dataValues[55].categoryOptionCombo",
+    "requestBody.stroke.other.0-7": "dataValues[55].value",
+
+    "constants.dataElementsCombos.stroke.coc.other.8-16.dataElementID": "dataValues[56].dataElement",
+    "constants.dataElementsCombos.stroke.coc.other.8-16.categoryOptionComboUID": "dataValues[56].categoryOptionCombo",
+    "requestBody.stroke.other.8-16": "dataValues[56].value",
+
+    "constants.dataElementsCombos.stroke.coc.other.17-25.dataElementID": "dataValues[57].dataElement",
+    "constants.dataElementsCombos.stroke.coc.other.17-25.categoryOptionComboUID": "dataValues[57].categoryOptionCombo",
+    "requestBody.stroke.other.17-25": "dataValues[57].value",
+
+    "constants.dataElementsCombos.stroke.coc.other.26-54.dataElementID": "dataValues[58].dataElement",
+    "constants.dataElementsCombos.stroke.coc.other.26-54.categoryOptionComboUID": "dataValues[58].categoryOptionCombo",
+    "requestBody.stroke.other.26-54": "dataValues[58].value",
+
+    "constants.dataElementsCombos.stroke.coc.other.55+.dataElementID": "dataValues[59].dataElement",
+    "constants.dataElementsCombos.stroke.coc.other.55+.categoryOptionComboUID": "dataValues[59].categoryOptionCombo",
+    "requestBody.stroke.other.55+": "dataValues[59].value"
+  },
+  "state": {},
+  "constants": {
+    "dataSet": "erWzudKG6Nf",
+    "dataElementsCombos": {
+      "cancer": {
+        "coc": {
+          "female": {
+            "0-7": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "Lj7VsYKrmI1"
+            },
+            "8-16": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "jVlbpReBHZa"
+            },
+            "17-25": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "JEC2wv0Cy9L"
+            },
+            "26-54": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "MWqvVgwjX65"
+            },
+            "55+": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "OdCqUlxxXBN"
+            }
+          },
+          "male": {
+            "0-7": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "OytzilLJgC4"
+            },
+            "8-16": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "QqZF4UthUsN"
+            },
+            "17-25": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "PmMG4Y4EZqB"
+            },
+            "26-54": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "aBPdXMqzdUU"
+            },
+            "55+": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "VgNOiGqCqdl"
+            }
+          },
+          "other": {
+            "0-7": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "B9tIM8f3W2q"
+            },
+            "8-16": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "VDZoIFvOrm6"
+            },
+            "17-25": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "nawHk0mtF88"
+            },
+            "26-54": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "XDeEVQl5K74"
+            },
+            "55+": {
+              "dataElementID": "m74i0Zn8Mox",
+              "categoryOptionComboUID": "Qt9jGLs1gfF"
+            }
+          }
+        }
+      },
+      "hiv": {
+        "coc": {
+          "female": {
+            "0-7": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "Lj7VsYKrmI1"
+            },
+            "8-16": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "jVlbpReBHZa"
+            },
+            "17-25": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "JEC2wv0Cy9L"
+            },
+            "26-54": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "MWqvVgwjX65"
+            },
+            "55+": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "OdCqUlxxXBN"
+            }
+          },
+          "male": {
+            "0-7": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "OytzilLJgC4"
+            },
+            "8-16": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "QqZF4UthUsN"
+            },
+            "17-25": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "PmMG4Y4EZqB"
+            },
+            "26-54": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "aBPdXMqzdUU"
+            },
+            "55+": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "VgNOiGqCqdl"
+            }
+          },
+          "other": {
+            "0-7": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "B9tIM8f3W2q"
+            },
+            "8-16": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "VDZoIFvOrm6"
+            },
+            "17-25": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "nawHk0mtF88"
+            },
+            "26-54": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "XDeEVQl5K74"
+            },
+            "55+": {
+              "dataElementID": "xHILMrkSLW5",
+              "categoryOptionComboUID": "Qt9jGLs1gfF"
+            }
+          }
+        }
+      },
+      "stroke": {
+        "coc": {
+          "female": {
+            "0-7": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "Lj7VsYKrmI1"
+            },
+            "8-16": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "jVlbpReBHZa"
+            },
+            "17-25": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "JEC2wv0Cy9L"
+            },
+            "26-54": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "MWqvVgwjX65"
+            },
+            "55+": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "OdCqUlxxXBN"
+            }
+          },
+          "male": {
+            "0-7": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "OytzilLJgC4"
+            },
+            "8-16": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "QqZF4UthUsN"
+            },
+            "17-25": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "PmMG4Y4EZqB"
+            },
+            "26-54": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "aBPdXMqzdUU"
+            },
+            "55+": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "VgNOiGqCqdl"
+            }
+          },
+          "other": {
+            "0-7": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "B9tIM8f3W2q"
+            },
+            "8-16": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "VDZoIFvOrm6"
+            },
+            "17-25": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "nawHk0mtF88"
+            },
+            "26-54": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "XDeEVQl5K74"
+            },
+            "55+": {
+              "dataElementID": "y3ExFtcb2vk",
+              "categoryOptionComboUID": "Qt9jGLs1gfF"
+            }
+          }
+        }
+      },
+      "tb": {
+        "coc": {
+          "female": {
+            "0-7": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "Lj7VsYKrmI1"
+            },
+            "8-16": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "jVlbpReBHZa"
+            },
+            "17-25": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "JEC2wv0Cy9L"
+            },
+            "26-54": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "MWqvVgwjX65"
+            },
+            "55+": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "OdCqUlxxXBN"
+            }
+          },
+          "male": {
+            "0-7": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "OytzilLJgC4"
+            },
+            "8-16": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "QqZF4UthUsN"
+            },
+            "17-25": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "PmMG4Y4EZqB"
+            },
+            "26-54": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "aBPdXMqzdUU"
+            },
+            "55+": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "VgNOiGqCqdl"
+            }
+          },
+          "other": {
+            "0-7": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "B9tIM8f3W2q"
+            },
+            "8-16": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "VDZoIFvOrm6"
+            },
+            "17-25": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "nawHk0mtF88"
+            },
+            "26-54": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "XDeEVQl5K74"
+            },
+            "55+": {
+              "dataElementID": "qjGicf5MAd3",
+              "categoryOptionComboUID": "Qt9jGLs1gfF"
+            }
+          }
+        }
+      }
+    }
+  }
+}
