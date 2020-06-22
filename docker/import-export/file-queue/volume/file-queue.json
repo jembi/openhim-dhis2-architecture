@@ -2,8 +2,8 @@
   "endpoints": [
     {
       "name": "DHIS2 Tracker Entity-based",
-      "path": "/tracker-entity",
-      "url": "http://admin:district@dhis-web:8080/api/trackedEntityInstances",
+      "path": "/tracker-entity-queue",
+      "url": "http://validator-orchestrator:3003/validator-orchestrator",
       "paused": false,
       "parallel": 2,
       "updateTx": true,
