@@ -19,6 +19,16 @@
       "updateTx": true,
       "forwardMetadata": false,
       "disableAutoChannelManagement": true
+    },
+    {
+      "name": "DHIS2 Aggregate",
+      "path": "/aggregate",
+      "url": "http://admin:district@dhis-web:8080/api/dataValueSets",
+      "paused": false,
+      "parallel": 2,
+      "updateTx": true,
+      "forwardMetadata": false,
+      "disableAutoChannelManagement": true
     }
   ]
 }
