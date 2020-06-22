@@ -20,6 +20,12 @@ To set up the services, use the following command:
 ./deploy.sh init docker
 ```
 
+To configure the apps and services, use the following command:
+
+```bash
+./docker/import-export.sh import
+```
+
 To tear down the services, use the following command:
 
 ```bash
