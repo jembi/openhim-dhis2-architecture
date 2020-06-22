@@ -1,0 +1,182 @@
+{
+  "name": "Validator/Orchestrator of Tracked Entity data",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/validator-orchestrator-tracked-entity"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
+    "transforms.rsaid": "attributes[]+",
+    "transforms.name": "attributes[]+",
+    "transforms.surname": "attributes[]+",
+    "transforms.dateOfBirth": "attributes[]+",
+    "params.stage": {
+      "key": "event.programStage",
+      "transform": {
+        "function": "mapCodes",
+        "parameters": {
+          "1stTrimester": "uf06mrU4OCl",
+          "2ndTrimester": "VwT93dzlGKR",
+          "3rdTrimester": "wS01tuPPa4i",
+          "birth": "TAd4JyIaqYB",
+          "miscarriage": "pWCWykH0WX2"
+        }
+      }
+    },
+    "transforms.establishedDueDate": "event.dataValues[]+",
+    "transforms.determinedNumFetusesAndPlacenta": "event.dataValues[]+",
+    "transforms.checkedDiagnosisEntropicPregnancyMiscarriage": "event.dataValues[]+",
+    "transforms.checkedUterusPelvicAnatomy": "event.dataValues[]+",
+    "transforms.checkedFatalAbnormalities": "event.dataValues[]+",
+    "transforms.confirmedDueDate": "event.dataValues[]+",
+    "transforms.prenatalTestCompleted": "event.dataValues[]+",
+    "transforms.checkedAmountAmnioticFluid2nd": "event.dataValues[]+",
+    "transforms.checkedBloodFlowPatterns": "event.dataValues[]+",
+    "transforms.measuredLengthCervix": "event.dataValues[]+",
+    "transforms.checkedAmountAmnioticFluid3rd": "event.dataValues[]+",
+    "transforms.determinedPositionOfFetus": "event.dataValues[]+",
+    "transforms.assessedPlacenta": "event.dataValues[]+",
+    "transforms.conductedBiophysicalProfileTest": "event.dataValues[]+",
+    "transforms.dateOfMiscarriage": "event.dataValues[]+",
+    "transforms.babyDateOfBirth": "event.dataValues[]+",
+    "transforms.babyWeight": "event.dataValues[]+"
+  },
+  "inputTransforms": {
+    "rsaid": "${'attribute': 'NWRtCWw116x', 'value': requestBody.rsaid}",
+    "name": "$exists(requestBody.name) ? {'attribute': 'OEjlQ9cmF2F', 'value': requestBody.name} : null",
+    "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
+    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null",
+    "establishedDueDate": "$exists(requestBody.establishedDueDate) ? {'dataElement': 'aZ4P7ID4aGn', 'value': requestBody.establishedDueDate} : null",
+    "determinedNumFetusesAndPlacenta": "$exists(requestBody.determinedNumFetusesAndPlacenta) ? {'dataElement': 'CKP4BGPDnQq', 'value': requestBody.determinedNumFetusesAndPlacenta} : null",
+    "checkedDiagnosisEntropicPregnancyMiscarriage": "$exists(requestBody.checkedDiagnosisEntropicPregnancyMiscarriage) ? {'dataElement': 'Lll70xhgBvD', 'value': requestBody.checkedDiagnosisEntropicPregnancyMiscarriage} : null",
+    "checkedUterusPelvicAnatomy": "$exists(requestBody.checkedUterusPelvicAnatomy) ? {'dataElement': 'KCNsGBVkFCX', 'value': requestBody.checkedUterusPelvicAnatomy} : null",
+    "checkedFatalAbnormalities": "$exists(requestBody.checkedFatalAbnormalities) ? {'dataElement': 'eMeKu90vQyM', 'value': requestBody.checkedFatalAbnormalities} : null",
+    "confirmedDueDate": "$exists(requestBody.confirmedDueDate) ? {'dataElement': 'pRjvrOcRVcw', 'value': requestBody.confirmedDueDate} : null",
+    "prenatalTestCompleted": "$exists(requestBody.prenatalTestCompleted) ? {'dataElement': 'tPQgYs48L5c', 'value': requestBody.prenatalTestCompleted} : null",
+    "checkedAmountAmnioticFluid2nd": "$exists(requestBody.checkedAmountAmnioticFluid2nd) ? {'dataElement': 'pp3My3W5tyr', 'value': requestBody.checkedAmountAmnioticFluid2nd} : null",
+    "checkedBloodFlowPatterns": "$exists(requestBody.checkedBloodFlowPatterns) ? {'dataElement': 'ZOs6x64jj4y', 'value': requestBody.checkedBloodFlowPatterns} : null",
+    "measuredLengthCervix": "$exists(requestBody.measuredLengthCervix) ? {'dataElement': 'HPSyseehhSL', 'value': requestBody.measuredLengthCervix} : null",
+    "checkedAmountAmnioticFluid3rd": "$exists(requestBody.checkedAmountAmnioticFluid3rd) ? {'dataElement': 'B79OXT9hYSg', 'value': requestBody.checkedAmountAmnioticFluid3rd} : null",
+    "determinedPositionOfFetus": "$exists(requestBody.determinedPositionOfFetus) ? {'dataElement': 'YHsQBzT7dbd', 'value': requestBody.determinedPositionOfFetus} : null",
+    "assessedPlacenta": "$exists(requestBody.assessedPlacenta) ? {'dataElement': 'tgYfhcIcp91', 'value': requestBody.assessedPlacenta} : null",
+    "conductedBiophysicalProfileTest": "$exists(requestBody.conductedBiophysicalProfileTest) ? {'dataElement': 'hQNpCZYRCuX', 'value': requestBody.conductedBiophysicalProfileTest} : null",
+    "dateOfMiscarriage": "$exists(requestBody.dateOfMiscarriage) ? {'dataElement': 'zyoMdMSQ7iH', 'value': requestBody.dateOfMiscarriage} : null",
+    "babyDateOfBirth": "$exists(requestBody.babyDateOfBirth) ? {'dataElement': 'eUDk5BaLwmd', 'value': requestBody.babyDateOfBirth} : null",
+    "babyWeight": "$exists(requestBody.babyWeight) ? {'dataElement': 'c7qpjrW2Scm', 'value': requestBody.babyWeight} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "facilityCode": {
+            "type": "string"
+          },
+          "rsaid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "establishedDueDate": {
+            "type": "boolean"
+          },
+          "determinedNumFetusesAndPlacenta": {
+            "type": "boolean"
+          },
+          "checkedDiagnosisEntropicPregnancyMiscarriage": {
+            "type": "boolean"
+          },
+          "checkedUterusPelvicAnatomy": {
+            "type": "boolean"
+          },
+          "checkedFatalAbnormalities": {
+            "type": "boolean"
+          },
+          "confirmedDueDate": {
+            "type": "boolean"
+          },
+          "prenatalTestCompleted": {
+            "type": "boolean"
+          },
+          "checkedAmountAmnioticFluid2nd": {
+            "type": "boolean"
+          },
+          "checkedBloodFlowPatterns": {
+            "type": "boolean"
+          },
+          "measuredLengthCervix": {
+            "type": "boolean"
+          },
+          "checkedAmountAmnioticFluid3rd": {
+            "type": "boolean"
+          },
+          "determinedPositionOfFetus": {
+            "type": "boolean"
+          },
+          "assessedPlacenta": {
+            "type": "boolean"
+          },
+          "conductedBiophysicalProfileTest": {
+            "type": "boolean"
+          },
+          "dateOfMiscarriage": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "babyDateOfBirth": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "babyWeight": {
+            "type": "string",
+            "pattern": "^\\d\\.\\d{1,3}$|^\\d$"
+          }
+        },
+        "required": ["rsaid", "facilityCode"]
+      }
+    }
+  },
+  "requests": {
+    "lookup": [
+      {
+        "id": "getOrgUnitID",
+        "config": {
+          "method": "GET",
+          "url": "http://facility-cache:3500/api/organisationUnits.json",
+          "params": {
+            "filter": {
+              "prefix": "code:eq:",
+              "path": "payload.facilityCode"
+            }
+          }
+        }
+      }
+    ],
+    "response": [
+      {
+        "id": "fileQueue",
+        "config": {
+          "method": "POST",
+          "url": "http://openhim-core:5001/entity-based/tracker-entity-queue",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": ""
+          }
+        }
+      }
+    ]
+  }
+}
