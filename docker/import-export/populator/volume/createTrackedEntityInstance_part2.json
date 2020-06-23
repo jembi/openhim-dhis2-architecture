@@ -9,16 +9,9 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "constants.trackedEntityType": "trackedEntityType",
-    "query.orgUnit": "orgUnit",
-    "constants.dob": "attributes[0].attribute",
-    "query.dateOfBirth": "attributes[0].value",
-    "constants.idNumber": "attributes[1].attribute",
-    "query.rsaid": "attributes[1].value",
-    "constants.name": "attributes[2].attribute",
-    "query.name": "attributes[2].value",
-    "constants.surname": "attributes[3].attribute",
-    "query.surname": "attributes[3].value"
+    "requestBody.trackedEntityType": "trackedEntityType",
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.attributes": "attributes"
   },
   "requests": {
     "response": [
@@ -34,12 +27,5 @@
         }
       }
     ]
-  },
-  "constants": {
-    "dob": "GLTZkxUqepl",
-    "idNumber": "NWRtCWw116x",
-    "name": "OEjlQ9cmF2F",
-    "surname": "bDUGWw9H8Uc",
-    "trackedEntityType": "lXGgEp7UjA5"
   }
 }

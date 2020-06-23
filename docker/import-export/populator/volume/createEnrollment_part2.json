@@ -9,7 +9,7 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "constants.program": "program",
+    "query.program": "program",
     "query.trackedEntityInstance": "trackedEntityInstance",
     "query.orgUnit": "orgUnit",
     "transforms.enrollmentDate": {
@@ -43,8 +43,5 @@
         }
       }
     ]
-  },
-  "constants": {
-    "program": "UrRxeuNqeco"
   }
 }

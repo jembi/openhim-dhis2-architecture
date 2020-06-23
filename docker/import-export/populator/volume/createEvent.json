@@ -9,7 +9,7 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "constants.program": "program",
+    "requestBody.program": "program",
     "requestBody.event.programStage": "programStage",
     "requestBody.orgUnit": "orgUnit",
     "requestBody.trackedEntityInstance": "trackedEntityInstance",
@@ -59,9 +59,5 @@
         }
       }
     ]
-  },
-  "constants": {
-    "program": "UrRxeuNqeco",
-    "status": "ACTIVE"
   }
 }

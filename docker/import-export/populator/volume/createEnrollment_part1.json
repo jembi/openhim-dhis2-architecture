@@ -11,6 +11,8 @@
   "inputMapping": {
     "requestBody.trackedEntityInstance": "trackedEntityInstance",
     "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.programStage": "programStage",
     "requestBody.event": "event"
   },
   "inputValidation": {
@@ -25,6 +27,9 @@
           "orgUnit": {
             "type": "string"
           },
+          "program": {
+            "type": "string"
+          },
           "enrollmentDate": {
             "type": "string",
             "nullable": true
@@ -34,7 +39,7 @@
             "nullable": true
           }
         },
-        "required": ["orgUnit", "trackedEntityInstance"]
+        "required": ["orgUnit", "trackedEntityInstance", "program"]
       }
     }
   },
@@ -60,6 +65,9 @@
             },
             "incidentDate": {
               "path": "payload.incidentDate"
+            },
+            "program": {
+              "path": "payload.program"
             }
           }
         }
@@ -70,7 +78,7 @@
         "id": "createEnrollment",
         "config": {
           "method": "POST",
-          "url": "http://openhim-core:5001/populator/createEvent",
+          "url": "http://populator:3003/createEvent",
           "headers": {
             "Content-Type": "application/json"
           }

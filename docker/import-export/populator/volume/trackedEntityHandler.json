@@ -8,31 +8,24 @@
     "input": "JSON",
     "output": "JSON"
   },
-  "inputMapping": {},
+  "inputMapping": {
+    "requestBody.attributes": "attributes",
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.event": "event",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate"
+  },
   "inputValidation": {
     "type": "object",
     "properties": {
       "requestBody": {
         "type": "object",
         "properties": {
-          "orgUnitID": {
+          "attributes": {
+            "type": "array"
+          },
+          "orgUnit": {
             "type": "string"
-          },
-          "rsaid": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "surname": {
-            "type": "string",
-            "nullable": true
-          },
-          "dateOfBirth": {
-            "type": "string",
-            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$",
-            "nullable": true
           },
           "event": {
             "type": "object",
@@ -42,9 +35,32 @@
               }
             },
             "required": ["programStage"]
+          },
+          "enrollmentDate": {
+            "type": "string"
+          },
+          "incidentDate": {
+            "type": "string"
           }
         },
-        "required": ["orgUnitID", "rsaid"]
+        "required": ["orgUnit", "rsaid"]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "trackedEntityInstances": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "trackedEntityInstance": {
+                  "type": "string"
+                }
+              },
+              "required": ["trackedEntityInstance"]
+            }
+          }
+        }
       }
     }
   },
@@ -65,7 +81,7 @@
               "path": "payload.rsaid"
             },
             "ou": {
-              "path": "payload.orgUnitID"
+              "path": "payload.orgUnit"
             }
           }
         }
@@ -76,9 +92,16 @@
         "id": "trackedEntityInstanceHandler",
         "config": {
           "method": "POST",
-          "url": "http://openhim-core:5001/populator/trackedEntityInstance",
+          "url": "http://populator:3003/trackedEntityInstance/:trackedEntityInstanceID",
           "headers": {
             "Content-Type": "application/json"
+          },
+          "params": {
+            "url": {
+              "trackedEntityInstanceID": {
+                "path": "lookupRequests.trackedEntityInstances[0].trackedEntityInstance"
+              }
+            }
           }
         }
       }

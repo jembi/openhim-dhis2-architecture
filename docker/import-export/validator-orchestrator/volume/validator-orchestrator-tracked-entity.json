@@ -10,10 +10,16 @@
   },
   "inputMapping": {
     "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
+    "constants.program": "program",
+    "constants.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
     "transforms.rsaid": "attributes[]+",
     "transforms.name": "attributes[]+",
     "transforms.surname": "attributes[]+",
     "transforms.dateOfBirth": "attributes[]+",
+    "constants.status": "event.status",
     "params.stage": {
       "key": "event.programStage",
       "transform": {
@@ -89,6 +95,12 @@
           "dateOfBirth": {
             "type": "string",
             "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "enrollmentDate": {
+            "type": "string"
+          },
+          "incidentDate": {
+            "type": "string"
           },
           "establishedDueDate": {
             "type": "boolean"
@@ -170,13 +182,17 @@
         "id": "fileQueue",
         "config": {
           "method": "POST",
-          "url": "http://openhim-core:5001/entity-based/tracker-entity-queue",
+          "url": "http://file-queue:4002/tracked-entity",
           "headers": {
-            "Content-Type": "application/json",
-            "Authorization": ""
+            "Content-Type": "application/json"
           }
         }
       }
     ]
+  },
+  "constants": {
+    "trackedEntityType": "lXGgEp7UjA5",
+    "program": "UrRxeuNqeco",
+    "status": "ACTIVE"
   }
 }
