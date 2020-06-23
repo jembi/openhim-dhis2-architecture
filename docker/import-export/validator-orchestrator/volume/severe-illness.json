@@ -22,31 +22,31 @@
               "male": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "female": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "other": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               }
             }
@@ -57,31 +57,31 @@
               "male": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "female": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "other": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               }
             }
@@ -92,31 +92,31 @@
               "male": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "female": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "other": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               }
             }
@@ -127,31 +127,31 @@
               "male": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "female": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               },
               "other": {
                 "type": "object",
                 "properties": {
-                  "0-7": {"type": "number"},
-                  "8-16": {"type": "number"},
-                  "17-25": {"type": "number"},
-                  "26-54": {"type": "number"},
-                  "55+": {"type": "number"}
+                  "0-7": {"type": ["number", "null"]},
+                  "8-16": {"type": ["number", "null"]},
+                  "17-25": {"type": ["number", "null"]},
+                  "26-54": {"type": ["number", "null"]},
+                  "55+": {"type": ["number", "null"]}
                 }
               }
             }
@@ -260,7 +260,7 @@
     "constants.dataElementsCombos.hiv.coc.other.0-7.categoryOptionComboUID": "dataValues[10].categoryOptionCombo",
     "requestBody.hiv.other.0-7": "dataValues[10].value",
 
-    "constants.dataElementsCombos.hiv.coc.other.8-16.dataElement": "dataValues[11].dataElement",
+    "constants.dataElementsCombos.hiv.coc.other.8-16.dataElementID": "dataValues[11].dataElement",
     "constants.dataElementsCombos.hiv.coc.other.8-16.categoryOptionComboUID": "dataValues[11].categoryOptionCombo",
     "requestBody.hiv.other.8-16": "dataValues[11].value",
 
