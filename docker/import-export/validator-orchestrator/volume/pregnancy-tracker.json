@@ -1,0 +1,106 @@
+{
+  "name": "Validator/Orchestrator of Tracked Entity data",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/pregnancy-tracker"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
+    "constants.program": "program",
+    "constants.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
+    "transforms.rsaid": "attributes[]+",
+    "transforms.name": "attributes[]+",
+    "transforms.surname": "attributes[]+",
+    "transforms.dateOfBirth": "attributes[]+",
+    "requestBody": "originalRequestBody"
+  },
+  "inputTransforms": {
+    "rsaid": "${'attribute': 'NWRtCWw116x', 'value': requestBody.rsaid}",
+    "name": "$exists(requestBody.name) ? {'attribute': 'OEjlQ9cmF2F', 'value': requestBody.name} : null",
+    "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
+    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "facilityCode": {
+            "type": "string"
+          },
+          "rsaid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "enrollmentDate": {
+            "type": "string"
+          },
+          "incidentDate": {
+            "type": "string"
+          },
+          "pregnancyStage": {
+            "type": "string",
+            "enum": [
+              "1st-trimester",
+              "2nd-trimester",
+              "3rd-trimester",
+              "birth",
+              "miscarriage"
+            ]
+          }
+        },
+        "required": ["rsaid", "facilityCode"]
+      }
+    }
+  },
+  "requests": {
+    "lookup": [
+      {
+        "id": "getOrgUnitID",
+        "config": {
+          "method": "GET",
+          "url": "http://facility-cache:3500/api/organisationUnits.json",
+          "params": {
+            "filter": {
+              "prefix": "code:eq:",
+              "path": "payload.facilityCode"
+            }
+          }
+        }
+      }
+    ],
+    "response": [
+      {
+        "id": "pregnancy-event",
+        "config": {
+          "method": "POST",
+          "url": "http://validator-orchestrator:3003/1st-trimester",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "trackedEntityType": "lXGgEp7UjA5",
+    "program": "UrRxeuNqeco"
+  }
+}

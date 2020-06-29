@@ -1,0 +1,71 @@
+{
+  "name": "Birth Event",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/birth"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
+    "requestBody.attributes": "attributes",
+    "constants.status": "event.status",
+    "constants.stage": "event.programStage",
+    "transforms.babyDateOfBirth": "event.dataValues[]+",
+    "transforms.babyWeight": "event.dataValues[]+"
+  },
+  "inputTransforms": {
+    "babyDateOfBirth": "$exists(requestBody.originalRequestBody.babyDateOfBirth) ? {'dataElement': 'eUDk5BaLwmd', 'value': requestBody.originalRequestBody.babyDateOfBirth} : null",
+    "babyWeight": "$exists(requestBody.originalRequestBody.babyWeight) ? {'dataElement': 'c7qpjrW2Scm', 'value': requestBody.originalRequestBody.babyWeight} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "originalRequestBody": {
+            "type": "object",
+            "properties": {
+              "babyDateOfBirth": {
+                "type": "string",
+                "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+              },
+              "babyWeight": {
+                "type": "string",
+                "pattern": "^\\d\\.\\d{1,3}$|^\\d$"
+              }
+            },
+            "required": ["babyDateOfBirth", "babyWeight"]
+          }
+        },
+        "required": ["originalRequestBody"]
+      }
+    }
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "fileQueue",
+        "config": {
+          "method": "POST",
+          "url": "http://file:4002/tracker-entity-queue",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "stage": "TAd4JyIaqYB",
+    "status": "ACTIVE"
+  }
+}

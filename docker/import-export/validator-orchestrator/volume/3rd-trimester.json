@@ -1,0 +1,84 @@
+{
+  "name": "3rd Trimester Event",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/3rd-trimester"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
+    "requestBody.attributes": "attributes",
+    "constants.status": "event.status",
+    "constants.stage": "event.programStage",
+    "transforms.checkedAmountAmnioticFluid3rd": "event.dataValues[]+",
+    "transforms.determinedPositionOfFetus": "event.dataValues[]+",
+    "transforms.assessedPlacenta": "event.dataValues[]+",
+    "transforms.conductedBiophysicalProfileTest": "event.dataValues[]+"
+  },
+  "inputTransforms": {
+    "checkedAmountAmnioticFluid3rd": "$exists(requestBody.originalRequestBody.checkedAmountAmnioticFluid3rd) ? {'dataElement': 'B79OXT9hYSg', 'value': requestBody.originalRequestBody.checkedAmountAmnioticFluid3rd} : null",
+    "determinedPositionOfFetus": "$exists(requestBody.originalRequestBody.determinedPositionOfFetus) ? {'dataElement': 'YHsQBzT7dbd', 'value': requestBody.originalRequestBody.determinedPositionOfFetus} : null",
+    "assessedPlacenta": "$exists(requestBody.originalRequestBody.assessedPlacenta) ? {'dataElement': 'tgYfhcIcp91', 'value': requestBody.originalRequestBody.assessedPlacenta} : null",
+    "conductedBiophysicalProfileTest": "$exists(requestBody.originalRequestBody.conductedBiophysicalProfileTest) ? {'dataElement': 'hQNpCZYRCuX', 'value': requestBody.originalRequestBody.conductedBiophysicalProfileTest} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "originalRequestBody": {
+            "type": "object",
+            "properties": {
+              "checkedAmountAmnioticFluid3rd": {
+                "type": "boolean"
+              },
+              "determinedPositionOfFetus": {
+                "type": "boolean"
+              },
+              "assessedPlacenta": {
+                "type": "boolean"
+              },
+              "conductedBiophysicalProfileTest": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "checkedAmountAmnioticFluid3rd",
+              "determinedPositionOfFetus",
+              "assessedPlacenta",
+              "conductedBiophysicalProfileTest"
+            ]
+          }
+        },
+        "required": ["originalRequestBody"]
+      }
+    }
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "fileQueue",
+        "config": {
+          "method": "POST",
+          "url": "http://file:4002/tracker-entity-queue",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "stage": "wS01tuPPa4i",
+    "status": "ACTIVE"
+  }
+}

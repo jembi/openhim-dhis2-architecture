@@ -1,0 +1,90 @@
+{
+  "name": "2nd Trimester Event",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/2nd-trimester"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
+    "requestBody.attributes": "attributes",
+    "constants.status": "event.status",
+    "constants.stage": "event.programStage",
+    "transforms.confirmedDueDate": "event.dataValues[]+",
+    "transforms.prenatalTestCompleted": "event.dataValues[]+",
+    "transforms.checkedAmountAmnioticFluid2nd": "event.dataValues[]+",
+    "transforms.checkedBloodFlowPatterns": "event.dataValues[]+",
+    "transforms.measuredLengthCervix": "event.dataValues[]+"
+  },
+  "inputTransforms": {
+    "confirmedDueDate": "$exists(requestBody.originalRequestBody.confirmedDueDate) ? {'dataElement': 'pRjvrOcRVcw', 'value': requestBody.originalRequestBody.confirmedDueDate} : null",
+    "prenatalTestCompleted": "$exists(requestBody.originalRequestBody.prenatalTestCompleted) ? {'dataElement': 'tPQgYs48L5c', 'value': requestBody.originalRequestBody.prenatalTestCompleted} : null",
+    "checkedAmountAmnioticFluid2nd": "$exists(requestBody.originalRequestBody.checkedAmountAmnioticFluid2nd) ? {'dataElement': 'pp3My3W5tyr', 'value': requestBody.originalRequestBody.checkedAmountAmnioticFluid2nd} : null",
+    "checkedBloodFlowPatterns": "$exists(requestBody.originalRequestBody.checkedBloodFlowPatterns) ? {'dataElement': 'ZOs6x64jj4y', 'value': requestBody.originalRequestBody.checkedBloodFlowPatterns} : null",
+    "measuredLengthCervix": "$exists(requestBody.originalRequestBody.measuredLengthCervix) ? {'dataElement': 'HPSyseehhSL', 'value': requestBody.originalRequestBody.measuredLengthCervix} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "originalRequestBody": {
+            "type": "object",
+            "properties": {
+              "confirmedDueDate": {
+                "type": "boolean"
+              },
+              "prenatalTestCompleted": {
+                "type": "boolean"
+              },
+              "checkedAmountAmnioticFluid2nd": {
+                "type": "boolean"
+              },
+              "checkedBloodFlowPatterns": {
+                "type": "boolean"
+              },
+              "measuredLengthCervix": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "confirmedDueDate",
+              "prenatalTestCompleted",
+              "checkedAmountAmnioticFluid2nd",
+              "checkedBloodFlowPatterns",
+              "measuredLengthCervix"
+            ]
+          }
+        },
+        "required": ["originalRequestBody"]
+      }
+    }
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "fileQueue",
+        "config": {
+          "method": "POST",
+          "url": "http://file:4002/tracker-entity-queue",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "stage": "VwT93dzlGKR",
+    "status": "ACTIVE"
+  }
+}

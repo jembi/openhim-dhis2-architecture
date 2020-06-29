@@ -1,0 +1,90 @@
+{
+  "name": "1st Trimester Event",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/1st-trimester"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
+    "requestBody.attributes": "attributes",
+    "constants.status": "event.status",
+    "constants.stage": "event.programStage",
+    "transforms.establishedDueDate": "event.dataValues[]+",
+    "transforms.determinedNumFetusesAndPlacenta": "event.dataValues[]+",
+    "transforms.checkedDiagnosisEntropicPregnancyMiscarriage": "event.dataValues[]+",
+    "transforms.checkedUterusPelvicAnatomy": "event.dataValues[]+",
+    "transforms.checkedFatalAbnormalities": "event.dataValues[]+"
+  },
+  "inputTransforms": {
+    "establishedDueDate": "$exists(requestBody.originalRequestBody.establishedDueDate) ? {'dataElement': 'aZ4P7ID4aGn', 'value': requestBody.originalRequestBody.establishedDueDate} : null",
+    "determinedNumFetusesAndPlacenta": "$exists(requestBody.originalRequestBody.determinedNumFetusesAndPlacenta) ? {'dataElement': 'CKP4BGPDnQq', 'value': requestBody.originalRequestBody.determinedNumFetusesAndPlacenta} : null",
+    "checkedDiagnosisEntropicPregnancyMiscarriage": "$exists(requestBody.originalRequestBody.checkedDiagnosisEntropicPregnancyMiscarriage) ? {'dataElement': 'Lll70xhgBvD', 'value': requestBody.originalRequestBody.checkedDiagnosisEntropicPregnancyMiscarriage} : null",
+    "checkedUterusPelvicAnatomy": "$exists(requestBody.originalRequestBody.checkedUterusPelvicAnatomy) ? {'dataElement': 'KCNsGBVkFCX', 'value': requestBody.originalRequestBody.checkedUterusPelvicAnatomy} : null",
+    "checkedFatalAbnormalities": "$exists(requestBody.originalRequestBody.checkedFatalAbnormalities) ? {'dataElement': 'eMeKu90vQyM', 'value': requestBody.originalRequestBody.checkedFatalAbnormalities} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "originalRequestBody": {
+            "type": "object",
+            "properties": {
+              "establishedDueDate": {
+                "type": "boolean"
+              },
+              "determinedNumFetusesAndPlacenta": {
+                "type": "boolean"
+              },
+              "checkedDiagnosisEntropicPregnancyMiscarriage": {
+                "type": "boolean"
+              },
+              "checkedUterusPelvicAnatomy": {
+                "type": "boolean"
+              },
+              "checkedFatalAbnormalities": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "establishedDueDate",
+              "determinedNumFetusesAndPlacenta",
+              "checkedDiagnosisEntropicPregnancyMiscarriage",
+              "checkedUterusPelvicAnatomy",
+              "checkedFatalAbnormalities"
+            ]
+          }
+        },
+        "required": ["originalRequestBody"]
+      }
+    }
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "fileQueue",
+        "config": {
+          "method": "POST",
+          "url": "http://file:4002/tracker-entity-queue",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "stage": "uf06mrU4OCl",
+    "status": "ACTIVE"
+  }
+}

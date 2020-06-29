@@ -1,0 +1,65 @@
+{
+  "name": "Miscarriage Event",
+  "endpoint": {
+    "method": "POST",
+    "pattern": "/miscarriage"
+  },
+  "transformation": {
+    "input": "JSON",
+    "output": "JSON"
+  },
+  "inputMapping": {
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.trackedEntityType": "trackedEntityType",
+    "requestBody.rsaid": "rsaid",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate",
+    "requestBody.attributes": "attributes",
+    "constants.status": "event.status",
+    "constants.stage": "event.programStage",
+    "transforms.dateOfMiscarriage": "event.dataValues[]+"
+  },
+  "inputTransforms": {
+    "dateOfMiscarriage": "$exists(requestBody.originalRequestBody.dateOfMiscarriage) ? {'dataElement': 'zyoMdMSQ7iH', 'value': requestBody.originalRequestBody.dateOfMiscarriage} : null"
+  },
+  "inputValidation": {
+    "type": "object",
+    "properties": {
+      "requestBody": {
+        "type": "object",
+        "properties": {
+          "originalRequestBody": {
+            "type": "object",
+            "properties": {
+              "dateOfMiscarriage": {
+                "type": "string",
+                "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+              }
+            },
+            "required": ["dateOfMiscarriage"]
+          }
+        },
+        "required": ["originalRequestBody"]
+      }
+    }
+  },
+  "requests": {
+    "response": [
+      {
+        "id": "fileQueue",
+        "config": {
+          "method": "POST",
+          "url": "http://file:4002/tracker-entity-queue",
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      }
+    ]
+  },
+  "constants": {
+    "stage": "pWCWykH0WX2",
+    "status": "ACTIVE"
+  }
+}
