@@ -1,5 +1,5 @@
 {
-  "name": "severe-illness-counts",
+  "name": "severe-illness",
   "endpoint": {
     "method": "POST",
     "pattern": "/severe-illness"
