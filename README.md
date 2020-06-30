@@ -81,9 +81,12 @@ POST data to `/entity-based/validator-orchestrator-tracked-entity`
   "determinedNumFetusesAndPlacenta": false,
   "checkedDiagnosisEntropicPregnancyMiscarriage": false,
   "checkedUterusPelvicAnatomy": true,
-  "checkedFatalAbnormalities": true
+  "checkedFatalAbnormalities": true,
+  "pregnancyStage": "1st-trimester"
 }
 ```
+
+> Available pregnancy stages: `1st-trimester`, `2nd-trimester`, `3rd-trimester`, `birth`, `miscarriage`
 
 ### Aggregate (Severe Illness) Anonymous Events
 
