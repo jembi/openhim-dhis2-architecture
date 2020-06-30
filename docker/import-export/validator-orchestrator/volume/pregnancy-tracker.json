@@ -78,7 +78,7 @@
             ]
           }
         },
-        "required": ["rsaid", "facilityCode"]
+        "required": ["rsaid", "facilityCode", "pregnancyStage"]
       }
     }
   },
@@ -103,9 +103,16 @@
         "id": "pregnancy-event",
         "config": {
           "method": "POST",
-          "url": "http://validator-orchestrator:3003/1st-trimester",
+          "url": "http://validator-orchestrator:3003/:pregnancyStage",
           "headers": {
             "Content-Type": "application/json"
+          },
+          "params": {
+            "url": {
+              "pregnancyStage": {
+                "path": "payload.pregnancyStage"
+              }
+            }
           }
         }
       }
