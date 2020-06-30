@@ -56,7 +56,7 @@
         "id": "fileQueue",
         "config": {
           "method": "POST",
-          "url": "http://file:4002/tracker-entity-queue",
+          "url": "http://file-queue:4002/tracker-entity-queue",
           "headers": {
             "Content-Type": "application/json"
           }
