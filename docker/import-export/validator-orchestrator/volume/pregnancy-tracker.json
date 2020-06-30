@@ -13,8 +13,18 @@
     "constants.program": "program",
     "constants.trackedEntityType": "trackedEntityType",
     "requestBody.rsaid": "rsaid",
-    "requestBody.enrollmentDate": "enrollmentDate",
-    "requestBody.incidentDate": "incidentDate",
+    "transforms.enrollmentDate": {
+      "key": "enrollmentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.incidentDate": {
+      "key": "incidentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
     "transforms.rsaid": "attributes[]+",
     "transforms.name": "attributes[]+",
     "transforms.surname": "attributes[]+",
@@ -25,7 +35,9 @@
     "rsaid": "${'attribute': 'NWRtCWw116x', 'value': requestBody.rsaid}",
     "name": "$exists(requestBody.name) ? {'attribute': 'OEjlQ9cmF2F', 'value': requestBody.name} : null",
     "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
-    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null"
+    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null",
+    "enrollmentDate": "$exists(requestBody.enrollmentDate) ? requestBody.enrollmentDate : $now()",
+    "incidentDate":  "$exists(requestBody.incidentDate) ? requestBody.incidentDate : $now()"
   },
   "inputValidation": {
     "type": "object",
