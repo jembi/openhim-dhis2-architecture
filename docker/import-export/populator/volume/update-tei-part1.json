@@ -1,5 +1,5 @@
 {
-  "name": "Part 1 of Creating a DHIS2 Tracked Entity Instances",
+  "name": "Part 1 of Updating a DHIS2 Tracked Entity Instance",
   "endpoint": {
     "method": "POST",
     "pattern": "/trackedEntityInstance/:trackedEntityInstanceID"
@@ -11,8 +11,10 @@
   "inputMapping": {
     "requestBody.orgUnitID": "orgUnit",
     "requestBody.event": "event",
+    "requestBody.program": "program",
     "requestBody.enrollmentDate": "enrollmentDate",
-    "requestBody.incidentDate": "incidentDate"
+    "requestBody.incidentDate": "incidentDate",
+    "urlParams.trackedEntityInstanceID": "trackedEntityInstance"
   },
   "inputValidation": {
     "type": "object",
@@ -32,32 +34,24 @@
       "lookupRequests": {
         "type": "object",
         "properties": {
-          "createTrackedEntityInstance": {
+          "updateTrackedEntityInstance": {
             "type": "object",
             "properties": {
               "response": {
                 "type": "object",
                 "properties": {
-                  "importSummaries": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        // Check 1 import
-                        "reference": {
-                          "type": "string"
-                        }
-                      },
-                      "required": ["reference"]
-                    }
+                  "body": {
+                    "type": "string",
+                    "pattern": "importCount\\S{15,35}updated\\S{1,7}1"
                   }
                 },
-                "required": ["importSummaries"]
+                "required": ["body"]
               }
             },
             "required": ["response"]
           }
-        }
+        },
+        "required": ["updateTrackedEntityInstance"]
       }
     }
   },
@@ -68,9 +62,16 @@
         "forwardExistingRequestBody": true,
         "config": {
           "method": "POST",
-          "url": "http://populator:3003/updateTrackedEntityInstance",
+          "url": "http://populator:3003/updateTrackedEntityInstance/:trackedEntityInstanceID",
           "headers": {
             "Content-Type": "application/json"
+          },
+          "params": {
+            "url": {
+              "trackedEntityInstanceID": {
+                "path": "urlParams.trackedEntityInstanceID"
+              }
+            }
           }
         }
       }
@@ -80,7 +81,7 @@
         "id": "createEnrollment",
         "config": {
           "method": "POST",
-          "url": "http://openhim-core:5001/populator/enrollment",
+          "url": "http://populator:3003/enrollment",
           "headers": {
             "Content-Type": "application/json"
           }

@@ -1,8 +1,8 @@
 {
   "name": "Part 2 of Creating a DHIS2 Tracked Entity Instance",
   "endpoint": {
-    "method": "GET",
-    "pattern": "/createTrackedEntityInstance"
+    "method": "POST",
+    "pattern": "/updateTrackedEntityInstance/:trackedEntityInstanceID"
   },
   "transformation": {
     "input": "JSON",
@@ -18,11 +18,18 @@
       {
         "id": "dhis-trackedEntityInstances",
         "config": {
-          "method": "POST",
-          "url": "http://dhis-web:8080/api/trackedEntityInstances",
+          "method": "PUT",
+          "url": "http://dhis-web:8080/api/trackedEntityInstances/:trackedEntityInstanceID",
           "headers": {
             "Content-Type": "application/json",
             "Authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
+          },
+          "params": {
+            "url": {
+              "trackedEntityInstanceID": {
+                "path": "urlParams.trackedEntityInstanceID"
+              }
+            }
           }
         }
       }

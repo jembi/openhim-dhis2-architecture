@@ -1,19 +1,25 @@
 {
-  "name": "Create/Update Tracked Entity (Pregnancy Tracker)",
+  "name": "Create/Update Tracked Entity",
   "endpoint": {
     "method": "POST",
-    "pattern": "/trackedEntityHandler"
+    "pattern": "/populator"
   },
   "transformation": {
     "input": "JSON",
     "output": "JSON"
   },
   "inputMapping": {
-    "requestBody.attributes": "attributes",
     "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.attributes": "attributes",
+    "requestBody.trackedEntityType": "trackedEntityType",
     "requestBody.event": "event",
     "requestBody.enrollmentDate": "enrollmentDate",
     "requestBody.incidentDate": "incidentDate"
+
+  },
+  "inputTransforms": {
+    "trackedEntityInstanceID": "$exists(lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance) ? lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance : ''"
   },
   "inputValidation": {
     "type": "object",
@@ -48,19 +54,26 @@
       "lookupRequests": {
         "type": "object",
         "properties": {
-          "trackedEntityInstances": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "trackedEntityInstance": {
-                  "type": "string"
+          "getTrackedEntityInstance": {
+            "type": "object",
+            "properties": {
+              "trackedEntityInstances": {
+                "type": "array",
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "trackedEntityInstance": {
+                      "type": "string"
+                    }
+                  }
                 }
-              },
-              "required": ["trackedEntityInstance"]
-            }
+              }
+            },
+            "required": ["trackedEntityInstances"]
           }
-        }
+        },
+        "required": ["getTrackedEntityInstance"]
       }
     }
   },
@@ -76,12 +89,14 @@
             "Authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
           },
           "params": {
-            "filter": {
-              "prefix": "NWRtCWw116x:EQ:",
-              "path": "payload.rsaid"
-            },
-            "ou": {
-              "path": "payload.orgUnit"
+            "query": {
+              "filter": {
+                "prefix": "NWRtCWw116x:EQ:",
+                "path": "payload.rsaid"
+              },
+              "ou": {
+                "path": "payload.orgUnit"
+              }
             }
           }
         }
@@ -99,7 +114,7 @@
           "params": {
             "url": {
               "trackedEntityInstanceID": {
-                "path": "lookupRequests.trackedEntityInstances[0].trackedEntityInstance"
+                "path": "transforms.trackedEntityInstanceID"
               }
             }
           }
