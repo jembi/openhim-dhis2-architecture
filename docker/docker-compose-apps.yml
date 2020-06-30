@@ -20,9 +20,9 @@ services:
       - api_authenticationTypes=["token", "basic"]
       - authentication_enableCustomTokenAuthentication=true
       - authentication_enableJWTAuthentication=true
-      - authentication_jwt_secretOrPublicKey="secret"
-      - authentication_jwt_algorithms="HS256"
-      - authentication_jwt_issuer="openhim"
+      - authentication_jwt_secretOrPublicKey=secret
+      - authentication_jwt_algorithms=HS256
+      - authentication_jwt_issuer=openhim
     ports:
       - "8080:8080"
       - "5000:5000"
