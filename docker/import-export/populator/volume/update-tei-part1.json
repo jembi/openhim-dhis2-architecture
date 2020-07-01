@@ -9,7 +9,7 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "requestBody.orgUnitID": "orgUnit",
+    "requestBody.orgUnit": "orgUnit",
     "requestBody.event": "event",
     "requestBody.program": "program",
     "requestBody.enrollmentDate": "enrollmentDate",
