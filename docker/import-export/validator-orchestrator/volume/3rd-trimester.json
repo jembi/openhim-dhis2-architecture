@@ -12,7 +12,7 @@
     "requestBody.orgUnit": "orgUnit",
     "requestBody.program": "program",
     "requestBody.trackedEntityType": "trackedEntityType",
-    "requestBody.rsaid": "rsaid",
+    "requestBody.rsaid": "teiIdentifier",
     "requestBody.enrollmentDate": "enrollmentDate",
     "requestBody.incidentDate": "incidentDate",
     "requestBody.attributes": "attributes",
