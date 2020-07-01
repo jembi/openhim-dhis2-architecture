@@ -37,7 +37,7 @@
     "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
     "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null",
     "enrollmentDate": "$exists(requestBody.enrollmentDate) ? requestBody.enrollmentDate : $now()",
-    "incidentDate":  "$exists(requestBody.incidentDate) ? requestBody.incidentDate : $now()"
+    "incidentDate": "$exists(requestBody.incidentDate) ? requestBody.incidentDate : $now()"
   },
   "inputValidation": {
     "type": "object",
@@ -79,8 +79,35 @@
           }
         },
         "required": ["rsaid", "facilityCode", "pregnancyStage"]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "getOrgUnitID": {
+            "type": "object",
+            "properties": {
+              "organisationUnits": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id"]
+                }
+              }
+            },
+            "required": ["organisationUnits"]
+          }
+        },
+        "required": ["getOrgUnitID"]
       }
-    }
+    },
+    "required": ["requestBody", "lookupRequests"]
   },
   "requests": {
     "lookup": [
@@ -90,9 +117,11 @@
           "method": "GET",
           "url": "http://facility-cache:3500/api/organisationUnits.json",
           "params": {
-            "filter": {
-              "prefix": "code:eq:",
-              "path": "payload.facilityCode"
+            "query": {
+              "filter": {
+                "prefix": "code:eq:",
+                "path": "payload.facilityCode"
+              }
             }
           }
         }
