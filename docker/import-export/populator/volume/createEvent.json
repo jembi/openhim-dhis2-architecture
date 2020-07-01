@@ -2,7 +2,7 @@
   "name": "Create a DHIS2 Program Event Linked to a Tracked Entity Instance",
   "endpoint": {
     "method": "POST",
-    "pattern": "/createEvent"
+    "pattern": "/event"
   },
   "transformation": {
     "input": "JSON",
@@ -11,15 +11,11 @@
   "inputMapping": {
     "requestBody.program": "program",
     "requestBody.event.programStage": "programStage",
+    "requestBody.event.dataValues": "dataValues",
+    "requestBody.event.eventDate": "eventDate",
+    "requestBody.event.status": "status",
     "requestBody.orgUnit": "orgUnit",
-    "requestBody.trackedEntityInstance": "trackedEntityInstance",
-    "constants.status": "status",
-    "transforms.eventDate": {
-      "key": "eventDate",
-      "transform": {
-        "function": "dateTimeToDate"
-      }
-    }
+    "requestBody.trackedEntityInstance": "trackedEntityInstance"
   },
   "inputValidation": {
     "type": "object",
@@ -33,17 +29,21 @@
           "orgUnit": {
             "type": "string"
           },
-          "eventDate": {
-            "type": "string",
-            "nullable": true
+          "event": {
+            "type": "object",
+            "properties": {
+              "eventDate": {
+                "type": "string"
+              },
+              "dataValue": {
+                "type": "array"
+              }
+            }
           }
         },
         "required": ["orgUnit", "trackedEntityInstance"]
       }
     }
-  },
-  "inputTransforms": {
-    "eventDate": "$exists(requestBody.eventDate) ? requestBody.eventDate : $now()"
   },
   "requests": {
     "response": [

@@ -16,10 +16,16 @@
     "requestBody.event": "event",
     "requestBody.enrollmentDate": "enrollmentDate",
     "requestBody.incidentDate": "incidentDate",
-    "requestBody.eventDate": "eventDate"
+    "transforms.eventDate": {
+      "key": "event.eventDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    }
   },
   "inputTransforms": {
-    "trackedEntityInstanceID": "$exists(lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance) ? lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance : ''"
+    "trackedEntityInstanceID": "$exists(lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance) ? lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance : ''",
+    "eventDate": "$exists(requestBody.eventDate) ? requestBody.eventDate : $now()"
   },
   "inputValidation": {
     "type": "object",
@@ -56,7 +62,7 @@
             "pattern": "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
           }
         },
-        "required": ["orgUnit", "teiIdentifier", "eventDate"]
+        "required": ["orgUnit", "teiIdentifier"]
       },
       "lookupRequests": {
         "type": "object",
