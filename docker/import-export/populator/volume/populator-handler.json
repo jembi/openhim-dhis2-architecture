@@ -1,5 +1,5 @@
 {
-  "name": "Create/Update Tracked Entity",
+  "name": "Populator Handler - Create/Update TEI, Enrollment, and Event",
   "endpoint": {
     "method": "POST",
     "pattern": "/populator"

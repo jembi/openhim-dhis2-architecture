@@ -1,5 +1,5 @@
 {
-  "name": "Part 2 of Creating a DHIS2 Tracked Entity Instance",
+  "name": "Part 2 of Updating a DHIS2 Tracked Entity Instance",
   "endpoint": {
     "method": "POST",
     "pattern": "/updateTrackedEntityInstance/:trackedEntityInstanceID"
