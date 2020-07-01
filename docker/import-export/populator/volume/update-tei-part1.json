@@ -53,7 +53,8 @@
         },
         "required": ["updateTrackedEntityInstance"]
       }
-    }
+    },
+    "required": ["requestBody", "lookupRequests"]
   },
   "requests": {
     "lookup": [
@@ -81,7 +82,7 @@
         "id": "createEnrollment",
         "config": {
           "method": "POST",
-          "url": "http://populator:3003/enrollment",
+          "url": "http://populator:3003/enrollmentHandler",
           "headers": {
             "Content-Type": "application/json"
           }
