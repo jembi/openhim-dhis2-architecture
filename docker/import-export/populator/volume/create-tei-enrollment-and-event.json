@@ -66,7 +66,7 @@
   "requests": {
     "response": [
       {
-        "id": "create-tei-enrollment-and-event",
+        "id": "dhis-create-tei-enrollment-and-event",
         "config": {
           "method": "POST",
           "url": "http://dhis-web:8080/api/trackedEntityInstances",

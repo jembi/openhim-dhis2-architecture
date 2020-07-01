@@ -18,7 +18,7 @@
   "requests": {
     "response": [
       {
-        "id": "dhis-enrollments",
+        "id": "dhis-update-enrollment",
         "config": {
           "method": "PUT",
           "url": "http://dhis-web:8080/api/enrollments/:enrollmentID",

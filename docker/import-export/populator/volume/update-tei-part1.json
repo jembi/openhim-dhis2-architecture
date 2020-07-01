@@ -79,7 +79,7 @@
     ],
     "response": [
       {
-        "id": "createEnrollment",
+        "id": "enrollmentHandler",
         "config": {
           "method": "POST",
           "url": "http://populator:3003/enrollmentHandler",
