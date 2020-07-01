@@ -2,7 +2,7 @@
   "name": "Part 1 of Creating a DHIS2 Program Enrollment for a Tracked Entity Instance",
   "endpoint": {
     "method": "POST",
-    "pattern": "/enrollment"
+    "pattern": "/enrollment/"
   },
   "transformation": {
     "input": "JSON",
@@ -29,14 +29,6 @@
           },
           "program": {
             "type": "string"
-          },
-          "enrollmentDate": {
-            "type": "string",
-            "nullable": true
-          },
-          "incidentDate": {
-            "type": "string",
-            "nullable": true
           }
         },
         "required": ["orgUnit", "trackedEntityInstance", "program"]
@@ -47,38 +39,22 @@
     "lookup": [
       {
         "id": "createEnrollment",
+        "forwardExistingRequestBody": true,
         "config": {
-          "method": "GET",
+          "method": "POST",
           "url": "http://populator:3003/createEnrollment",
           "headers": {
             "Content-Type": "application/json"
-          },
-          "params": {
-            "trackedEntityInstance": {
-              "path": "payload.trackedEntityInstance"
-            },
-            "orgUnit": {
-              "path": "payload.orgUnit"
-            },
-            "enrollmentDate": {
-              "path": "payload.enrollmentDate"
-            },
-            "incidentDate": {
-              "path": "payload.incidentDate"
-            },
-            "program": {
-              "path": "payload.program"
-            }
           }
         }
       }
     ],
     "response": [
       {
-        "id": "createEnrollment",
+        "id": "createEvent",
         "config": {
           "method": "POST",
-          "url": "http://populator:3003/createEvent",
+          "url": "http://populator:3003/event",
           "headers": {
             "Content-Type": "application/json"
           }

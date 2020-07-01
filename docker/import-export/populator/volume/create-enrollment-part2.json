@@ -9,30 +9,16 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "query.program": "program",
-    "query.trackedEntityInstance": "trackedEntityInstance",
-    "query.orgUnit": "orgUnit",
-    "transforms.enrollmentDate": {
-      "key": "enrollmentDate",
-      "transform": {
-        "function": "dateTimeToDate"
-      }
-    },
-    "transforms.incidentDate": {
-      "key": "incidentDate",
-      "transform": {
-        "function": "dateTimeToDate"
-      }
-    }
-  },
-  "inputTransforms": {
-    "enrollmentDate": "$exists(query.enrollmentDate) ? query.enrollmentDate : $now()",
-    "incidentDate": "$exists(query.incidentDate) ? query.incidentDate : $now()"
+    "requestBody.trackedEntityInstance": "trackedEntityInstance",
+    "requestBody.orgUnit": "orgUnit",
+    "requestBody.program": "program",
+    "requestBody.enrollmentDate": "enrollmentDate",
+    "requestBody.incidentDate": "incidentDate"
   },
   "requests": {
     "response": [
       {
-        "id": "dhis-enrollment",
+        "id": "dhis-create-enrollment",
         "config": {
           "method": "POST",
           "url": "http://dhis-web:8080/api/enrollments",
