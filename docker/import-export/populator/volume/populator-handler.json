@@ -15,7 +15,8 @@
     "requestBody.trackedEntityType": "trackedEntityType",
     "requestBody.event": "event",
     "requestBody.enrollmentDate": "enrollmentDate",
-    "requestBody.incidentDate": "incidentDate"
+    "requestBody.incidentDate": "incidentDate",
+    "requestBody.eventDate": "eventDate"
 
   },
   "inputTransforms": {
@@ -47,9 +48,13 @@
           },
           "incidentDate": {
             "type": "string"
+          },
+          "eventDate": {
+            "type": "string",
+            "pattern": "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
           }
         },
-        "required": ["orgUnit", "rsaid"]
+        "required": ["orgUnit", "rsaid", "eventDate"]
       },
       "lookupRequests": {
         "type": "object",
