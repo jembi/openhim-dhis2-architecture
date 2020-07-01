@@ -17,7 +17,6 @@
     "requestBody.enrollmentDate": "enrollmentDate",
     "requestBody.incidentDate": "incidentDate",
     "requestBody.eventDate": "eventDate"
-
   },
   "inputTransforms": {
     "trackedEntityInstanceID": "$exists(lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance) ? lookupRequests.getTrackedEntityInstance.trackedEntityInstances[0].trackedEntityInstance : ''"
@@ -30,6 +29,9 @@
         "properties": {
           "attributes": {
             "type": "array"
+          },
+          "teiIdentifier": {
+            "type": "string"
           },
           "orgUnit": {
             "type": "string"
@@ -54,7 +56,7 @@
             "pattern": "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
           }
         },
-        "required": ["orgUnit", "rsaid", "eventDate"]
+        "required": ["orgUnit", "teiIdentifier", "eventDate"]
       },
       "lookupRequests": {
         "type": "object",
@@ -83,30 +85,6 @@
     }
   },
   "requests": {
-    "lookup": [
-      {
-        "id": "getTrackedEntityInstance",
-        "config": {
-          "method": "GET",
-          "url": "http://dhis-web:8080/api/trackedEntityInstances",
-          "headers": {
-            "Content-Type": "application/json",
-            "Authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
-          },
-          "params": {
-            "query": {
-              "filter": {
-                "prefix": "NWRtCWw116x:EQ:",
-                "path": "payload.rsaid"
-              },
-              "ou": {
-                "path": "payload.orgUnit"
-              }
-            }
-          }
-        }
-      }
-    ],
     "response": [
       {
         "id": "trackedEntityInstanceHandler",
@@ -125,6 +103,37 @@
           }
         }
       }
+    ],
+    "lookup": [
+      {
+        "id": "getTrackedEntityInstance",
+        "config": {
+          "method": "GET",
+          "url": "http://dhis-web:8080/api/trackedEntityInstances",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Basic YWRtaW46ZGlzdHJpY3Q="
+          },
+          "params": {
+            "query": {
+              "ou": {
+                "path": "constants.topLevelOrgUnit"
+              },
+              "ouMode": {
+                "path": "constants.orgUnitSearchMode"
+              },
+              "filter": {
+                "path": "payload.teiIdentifier",
+                "prefix": "NWRtCWw116x:EQ:"
+              }
+            }
+          }
+        }
+      }
     ]
+  },
+  "constants": {
+    "topLevelOrgUnit": "JLA7wl59oN3",
+    "orgUnitSearchMode": "DESCENDANTS"
   }
 }
