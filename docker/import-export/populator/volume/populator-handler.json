@@ -124,7 +124,8 @@
               },
               "filter": {
                 "path": "payload.teiIdentifier",
-                "prefix": "NWRtCWw116x:EQ:"
+                "prefix": "NWRtCWw116x:EQ:",
+                "label": "^^^ This value is the DHIS2 TEI unique field UUID. It need to be configured per DHIS2 instance"
               }
             }
           }
