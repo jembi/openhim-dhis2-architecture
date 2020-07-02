@@ -20,9 +20,9 @@ services:
       - api_authenticationTypes=["token", "basic"]
       - authentication_enableCustomTokenAuthentication=true
       - authentication_enableJWTAuthentication=true
-      - authentication_jwt_secretOrPublicKey="secret"
-      - authentication_jwt_algorithms="HS256"
-      - authentication_jwt_issuer="openhim"
+      - authentication_jwt_secretOrPublicKey=secret
+      - authentication_jwt_algorithms=HS256
+      - authentication_jwt_issuer=openhim
     ports:
       - "8080:8080"
       - "5000:5000"
@@ -33,7 +33,7 @@ services:
 
   openhim-console:
     container_name: openhim-console
-    image: jembi/openhim-console:1.13
+    image: jembi/openhim-console:1.14
     ports:
       - "9000:80"
     depends_on:
