@@ -9,25 +9,44 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "requestBody.orgUnit": "orgUnit",
-    "requestBody.program": "program",
-    "requestBody.trackedEntityType": "trackedEntityType",
     "requestBody.rsaid": "teiIdentifier",
-    "requestBody.enrollmentDate": "enrollmentDate",
-    "requestBody.incidentDate": "incidentDate",
-    "requestBody.attributes": "attributes",
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
+    "constants.program": "program",
+    "constants.trackedEntityType": "trackedEntityType",
     "constants.status": "event.status",
     "constants.stage": "event.programStage",
+    "transforms.enrollmentDate": {
+      "key": "enrollmentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.incidentDate": {
+      "key": "incidentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.rsaid": "attributes[]+",
+    "transforms.name": "attributes[]+",
+    "transforms.surname": "attributes[]+",
+    "transforms.dateOfBirth": "attributes[]+",
     "transforms.checkedAmountAmnioticFluid3rd": "event.dataValues[]+",
     "transforms.determinedPositionOfFetus": "event.dataValues[]+",
     "transforms.assessedPlacenta": "event.dataValues[]+",
     "transforms.conductedBiophysicalProfileTest": "event.dataValues[]+"
   },
   "inputTransforms": {
-    "checkedAmountAmnioticFluid3rd": "$exists(requestBody.originalRequestBody.checkedAmountAmnioticFluid3rd) ? {'dataElement': 'B79OXT9hYSg', 'value': requestBody.originalRequestBody.checkedAmountAmnioticFluid3rd} : null",
-    "determinedPositionOfFetus": "$exists(requestBody.originalRequestBody.determinedPositionOfFetus) ? {'dataElement': 'YHsQBzT7dbd', 'value': requestBody.originalRequestBody.determinedPositionOfFetus} : null",
-    "assessedPlacenta": "$exists(requestBody.originalRequestBody.assessedPlacenta) ? {'dataElement': 'tgYfhcIcp91', 'value': requestBody.originalRequestBody.assessedPlacenta} : null",
-    "conductedBiophysicalProfileTest": "$exists(requestBody.originalRequestBody.conductedBiophysicalProfileTest) ? {'dataElement': 'hQNpCZYRCuX', 'value': requestBody.originalRequestBody.conductedBiophysicalProfileTest} : null"
+    "rsaid": "${'attribute': 'NWRtCWw116x', 'value': requestBody.rsaid}",
+    "name": "$exists(requestBody.name) ? {'attribute': 'OEjlQ9cmF2F', 'value': requestBody.name} : null",
+    "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
+    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null",
+    "enrollmentDate": "$exists(requestBody.enrollmentDate) ? requestBody.enrollmentDate : $now()",
+    "incidentDate": "$exists(requestBody.incidentDate) ? requestBody.incidentDate : $now()",
+    "checkedAmountAmnioticFluid3rd": "$exists(requestBody.checkedAmountAmnioticFluid3rd) ? {'dataElement': 'B79OXT9hYSg', 'value': requestBody.checkedAmountAmnioticFluid3rd} : null",
+    "determinedPositionOfFetus": "$exists(requestBody.determinedPositionOfFetus) ? {'dataElement': 'YHsQBzT7dbd', 'value': requestBody.determinedPositionOfFetus} : null",
+    "assessedPlacenta": "$exists(requestBody.assessedPlacenta) ? {'dataElement': 'tgYfhcIcp91', 'value': requestBody.assessedPlacenta} : null",
+    "conductedBiophysicalProfileTest": "$exists(requestBody.conductedBiophysicalProfileTest) ? {'dataElement': 'hQNpCZYRCuX', 'value': requestBody.conductedBiophysicalProfileTest} : null"
   },
   "inputValidation": {
     "type": "object",
@@ -35,35 +54,96 @@
       "requestBody": {
         "type": "object",
         "properties": {
-          "originalRequestBody": {
-            "type": "object",
-            "properties": {
-              "checkedAmountAmnioticFluid3rd": {
-                "type": "boolean"
-              },
-              "determinedPositionOfFetus": {
-                "type": "boolean"
-              },
-              "assessedPlacenta": {
-                "type": "boolean"
-              },
-              "conductedBiophysicalProfileTest": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "checkedAmountAmnioticFluid3rd",
-              "determinedPositionOfFetus",
-              "assessedPlacenta",
-              "conductedBiophysicalProfileTest"
-            ]
+          "facilityCode": {
+            "type": "string"
+          },
+          "rsaid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "enrollmentDate": {
+            "type": "string"
+          },
+          "incidentDate": {
+            "type": "string"
+          },
+          "checkedAmountAmnioticFluid3rd": {
+            "type": "boolean"
+          },
+          "determinedPositionOfFetus": {
+            "type": "boolean"
+          },
+          "assessedPlacenta": {
+            "type": "boolean"
+          },
+          "conductedBiophysicalProfileTest": {
+            "type": "boolean"
           }
         },
-        "required": ["originalRequestBody"]
+        "required": [
+          "rsaid",
+          "facilityCode",
+          "checkedAmountAmnioticFluid3rd",
+          "determinedPositionOfFetus",
+          "assessedPlacenta",
+          "conductedBiophysicalProfileTest"
+        ]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "getOrgUnitID": {
+            "type": "object",
+            "properties": {
+              "organisationUnits": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id"]
+                }
+              }
+            },
+            "required": ["organisationUnits"]
+          }
+        },
+        "required": ["getOrgUnitID"]
       }
     }
   },
   "requests": {
+    "lookup": [
+      {
+        "id": "getOrgUnitID",
+        "config": {
+          "method": "GET",
+          "url": "http://facility-cache:3500/api/organisationUnits.json",
+          "params": {
+            "query": {
+              "filter": {
+                "prefix": "code:eq:",
+                "path": "payload.facilityCode"
+              }
+            }
+          }
+        }
+      }
+    ],
     "response": [
       {
         "id": "fileQueue",
@@ -78,6 +158,8 @@
     ]
   },
   "constants": {
+    "trackedEntityType": "lXGgEp7UjA5",
+    "program": "UrRxeuNqeco",
     "stage": "wS01tuPPa4i",
     "status": "ACTIVE"
   }

@@ -140,7 +140,7 @@
           "host": "validator-orchestrator",
           "port": 3003,
           "path": "",
-          "pathTransform": "s/\\/entity-based//g",
+          "pathTransform": "s/\\/entity-based\//pregnancy-tracker/g",
           "primary": true,
           "username": "",
           "password": ""
@@ -150,7 +150,7 @@
       "responseBody": true,
       "rewriteUrlsConfig": [],
       "name": "DHIS2 Entity Based - Pregnancy Tracker",
-      "urlPattern": "^/entity-based/.*$",
+      "urlPattern": "^/entity-based/pregnancy-tracker/.*$",
       "matchContentRegex": null,
       "matchContentXpath": null,
       "matchContentValue": null,

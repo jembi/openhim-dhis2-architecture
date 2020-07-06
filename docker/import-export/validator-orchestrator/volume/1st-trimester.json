@@ -9,15 +9,28 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "requestBody.orgUnit": "orgUnit",
-    "requestBody.program": "program",
-    "requestBody.trackedEntityType": "trackedEntityType",
     "requestBody.rsaid": "teiIdentifier",
-    "requestBody.enrollmentDate": "enrollmentDate",
-    "requestBody.incidentDate": "incidentDate",
-    "requestBody.attributes": "attributes",
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
+    "constants.program": "program",
+    "constants.trackedEntityType": "trackedEntityType",
     "constants.status": "event.status",
     "constants.stage": "event.programStage",
+    "transforms.enrollmentDate": {
+      "key": "enrollmentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.incidentDate": {
+      "key": "incidentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.rsaid": "attributes[]+",
+    "transforms.name": "attributes[]+",
+    "transforms.surname": "attributes[]+",
+    "transforms.dateOfBirth": "attributes[]+",
     "transforms.establishedDueDate": "event.dataValues[]+",
     "transforms.determinedNumFetusesAndPlacenta": "event.dataValues[]+",
     "transforms.checkedDiagnosisEntropicPregnancyMiscarriage": "event.dataValues[]+",
@@ -25,11 +38,17 @@
     "transforms.checkedFatalAbnormalities": "event.dataValues[]+"
   },
   "inputTransforms": {
-    "establishedDueDate": "$exists(requestBody.originalRequestBody.establishedDueDate) ? {'dataElement': 'aZ4P7ID4aGn', 'value': requestBody.originalRequestBody.establishedDueDate} : null",
-    "determinedNumFetusesAndPlacenta": "$exists(requestBody.originalRequestBody.determinedNumFetusesAndPlacenta) ? {'dataElement': 'CKP4BGPDnQq', 'value': requestBody.originalRequestBody.determinedNumFetusesAndPlacenta} : null",
-    "checkedDiagnosisEntropicPregnancyMiscarriage": "$exists(requestBody.originalRequestBody.checkedDiagnosisEntropicPregnancyMiscarriage) ? {'dataElement': 'Lll70xhgBvD', 'value': requestBody.originalRequestBody.checkedDiagnosisEntropicPregnancyMiscarriage} : null",
-    "checkedUterusPelvicAnatomy": "$exists(requestBody.originalRequestBody.checkedUterusPelvicAnatomy) ? {'dataElement': 'KCNsGBVkFCX', 'value': requestBody.originalRequestBody.checkedUterusPelvicAnatomy} : null",
-    "checkedFatalAbnormalities": "$exists(requestBody.originalRequestBody.checkedFatalAbnormalities) ? {'dataElement': 'eMeKu90vQyM', 'value': requestBody.originalRequestBody.checkedFatalAbnormalities} : null"
+    "rsaid": "${'attribute': 'NWRtCWw116x', 'value': requestBody.rsaid}",
+    "name": "$exists(requestBody.name) ? {'attribute': 'OEjlQ9cmF2F', 'value': requestBody.name} : null",
+    "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
+    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null",
+    "enrollmentDate": "$exists(requestBody.enrollmentDate) ? requestBody.enrollmentDate : $now()",
+    "incidentDate": "$exists(requestBody.incidentDate) ? requestBody.incidentDate : $now()",
+    "establishedDueDate": "$exists(requestBody.establishedDueDate) ? {'dataElement': 'aZ4P7ID4aGn', 'value': requestBody.establishedDueDate} : null",
+    "determinedNumFetusesAndPlacenta": "$exists(requestBody.determinedNumFetusesAndPlacenta) ? {'dataElement': 'CKP4BGPDnQq', 'value': requestBody.determinedNumFetusesAndPlacenta} : null",
+    "checkedDiagnosisEntropicPregnancyMiscarriage": "$exists(requestBody.checkedDiagnosisEntropicPregnancyMiscarriage) ? {'dataElement': 'Lll70xhgBvD', 'value': requestBody.checkedDiagnosisEntropicPregnancyMiscarriage} : null",
+    "checkedUterusPelvicAnatomy": "$exists(requestBody.checkedUterusPelvicAnatomy) ? {'dataElement': 'KCNsGBVkFCX', 'value': requestBody.checkedUterusPelvicAnatomy} : null",
+    "checkedFatalAbnormalities": "$exists(requestBody.checkedFatalAbnormalities) ? {'dataElement': 'eMeKu90vQyM', 'value': requestBody.checkedFatalAbnormalities} : null"
   },
   "inputValidation": {
     "type": "object",
@@ -37,42 +56,105 @@
       "requestBody": {
         "type": "object",
         "properties": {
-          "originalRequestBody": {
-            "type": "object",
-            "properties": {
-              "establishedDueDate": {
-                "type": "boolean"
-              },
-              "determinedNumFetusesAndPlacenta": {
-                "type": "boolean"
-              },
-              "checkedDiagnosisEntropicPregnancyMiscarriage": {
-                "type": "boolean"
-              },
-              "checkedUterusPelvicAnatomy": {
-                "type": "boolean"
-              },
-              "checkedFatalAbnormalities": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "establishedDueDate",
-              "determinedNumFetusesAndPlacenta",
-              "checkedDiagnosisEntropicPregnancyMiscarriage",
-              "checkedUterusPelvicAnatomy",
-              "checkedFatalAbnormalities"
-            ]
+          "facilityCode": {
+            "type": "string"
+          },
+          "rsaid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "enrollmentDate": {
+            "type": "string"
+          },
+          "incidentDate": {
+            "type": "string"
+          },
+          "establishedDueDate": {
+            "type": "boolean"
+          },
+          "determinedNumFetusesAndPlacenta": {
+            "type": "boolean"
+          },
+          "checkedDiagnosisEntropicPregnancyMiscarriage": {
+            "type": "boolean"
+          },
+          "checkedUterusPelvicAnatomy": {
+            "type": "boolean"
+          },
+          "checkedFatalAbnormalities": {
+            "type": "boolean"
           }
         },
-        "required": ["originalRequestBody"]
+        "required": [
+          "rsaid",
+          "facilityCode",
+          "establishedDueDate",
+          "determinedNumFetusesAndPlacenta",
+          "checkedDiagnosisEntropicPregnancyMiscarriage",
+          "checkedUterusPelvicAnatomy",
+          "checkedFatalAbnormalities"
+        ]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "getOrgUnitID": {
+            "type": "object",
+            "properties": {
+              "organisationUnits": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id"]
+                }
+              }
+            },
+            "required": ["organisationUnits"]
+          }
+        },
+        "required": ["getOrgUnitID"]
       }
-    }
+    },
+    "required": ["requestBody", "lookupRequests"]
   },
   "requests": {
+    "lookup": [
+      {
+        "id": "getOrgUnitID",
+        "config": {
+          "method": "GET",
+          "url": "http://facility-cache:3500/api/organisationUnits.json",
+          "params": {
+            "query": {
+              "filter": {
+                "prefix": "code:eq:",
+                "path": "payload.facilityCode"
+              }
+            }
+          }
+        }
+      }
+    ],
     "response": [
       {
         "id": "fileQueue",
+        "primary": true,
         "config": {
           "method": "POST",
           "url": "http://file-queue:4002/tracker-entity-queue",
@@ -84,6 +166,8 @@
     ]
   },
   "constants": {
+    "trackedEntityType": "lXGgEp7UjA5",
+    "program": "UrRxeuNqeco",
     "stage": "uf06mrU4OCl",
     "status": "ACTIVE"
   }
