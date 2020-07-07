@@ -9,15 +9,28 @@
     "output": "JSON"
   },
   "inputMapping": {
-    "requestBody.orgUnit": "orgUnit",
-    "requestBody.program": "program",
-    "requestBody.trackedEntityType": "trackedEntityType",
     "requestBody.rsaid": "teiIdentifier",
-    "requestBody.enrollmentDate": "enrollmentDate",
-    "requestBody.incidentDate": "incidentDate",
-    "requestBody.attributes": "attributes",
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
+    "constants.program": "program",
+    "constants.trackedEntityType": "trackedEntityType",
     "constants.status": "event.status",
     "constants.stage": "event.programStage",
+    "transforms.enrollmentDate": {
+      "key": "enrollmentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.incidentDate": {
+      "key": "incidentDate",
+      "transform": {
+        "function": "dateTimeToDate"
+      }
+    },
+    "transforms.rsaid": "attributes[]+",
+    "transforms.name": "attributes[]+",
+    "transforms.surname": "attributes[]+",
+    "transforms.dateOfBirth": "attributes[]+",
     "transforms.confirmedDueDate": "event.dataValues[]+",
     "transforms.prenatalTestCompleted": "event.dataValues[]+",
     "transforms.checkedAmountAmnioticFluid2nd": "event.dataValues[]+",
@@ -25,11 +38,17 @@
     "transforms.measuredLengthCervix": "event.dataValues[]+"
   },
   "inputTransforms": {
-    "confirmedDueDate": "$exists(requestBody.originalRequestBody.confirmedDueDate) ? {'dataElement': 'pRjvrOcRVcw', 'value': requestBody.originalRequestBody.confirmedDueDate} : null",
-    "prenatalTestCompleted": "$exists(requestBody.originalRequestBody.prenatalTestCompleted) ? {'dataElement': 'tPQgYs48L5c', 'value': requestBody.originalRequestBody.prenatalTestCompleted} : null",
-    "checkedAmountAmnioticFluid2nd": "$exists(requestBody.originalRequestBody.checkedAmountAmnioticFluid2nd) ? {'dataElement': 'pp3My3W5tyr', 'value': requestBody.originalRequestBody.checkedAmountAmnioticFluid2nd} : null",
-    "checkedBloodFlowPatterns": "$exists(requestBody.originalRequestBody.checkedBloodFlowPatterns) ? {'dataElement': 'ZOs6x64jj4y', 'value': requestBody.originalRequestBody.checkedBloodFlowPatterns} : null",
-    "measuredLengthCervix": "$exists(requestBody.originalRequestBody.measuredLengthCervix) ? {'dataElement': 'HPSyseehhSL', 'value': requestBody.originalRequestBody.measuredLengthCervix} : null"
+    "rsaid": "${'attribute': 'NWRtCWw116x', 'value': requestBody.rsaid}",
+    "name": "$exists(requestBody.name) ? {'attribute': 'OEjlQ9cmF2F', 'value': requestBody.name} : null",
+    "surname": "$exists(requestBody.surname) ? {'attribute': 'bDUGWw9H8Uc', 'value': requestBody.surname} : null",
+    "dateOfBirth": "$exists(requestBody.dateOfBirth) ? {'attribute': 'GLTZkxUqepl', 'value': requestBody.dateOfBirth} : null",
+    "enrollmentDate": "$exists(requestBody.enrollmentDate) ? requestBody.enrollmentDate : $now()",
+    "incidentDate": "$exists(requestBody.incidentDate) ? requestBody.incidentDate : $now()",
+    "confirmedDueDate": "$exists(requestBody.confirmedDueDate) ? {'dataElement': 'pRjvrOcRVcw', 'value': requestBody.confirmedDueDate} : null",
+    "prenatalTestCompleted": "$exists(requestBody.prenatalTestCompleted) ? {'dataElement': 'tPQgYs48L5c', 'value': requestBody.prenatalTestCompleted} : null",
+    "checkedAmountAmnioticFluid2nd": "$exists(requestBody.checkedAmountAmnioticFluid2nd) ? {'dataElement': 'pp3My3W5tyr', 'value': requestBody.checkedAmountAmnioticFluid2nd} : null",
+    "checkedBloodFlowPatterns": "$exists(requestBody.checkedBloodFlowPatterns) ? {'dataElement': 'ZOs6x64jj4y', 'value': requestBody.checkedBloodFlowPatterns} : null",
+    "measuredLengthCervix": "$exists(requestBody.measuredLengthCervix) ? {'dataElement': 'HPSyseehhSL', 'value': requestBody.measuredLengthCervix} : null"
   },
   "inputValidation": {
     "type": "object",
@@ -37,39 +56,101 @@
       "requestBody": {
         "type": "object",
         "properties": {
-          "originalRequestBody": {
-            "type": "object",
-            "properties": {
-              "confirmedDueDate": {
-                "type": "boolean"
-              },
-              "prenatalTestCompleted": {
-                "type": "boolean"
-              },
-              "checkedAmountAmnioticFluid2nd": {
-                "type": "boolean"
-              },
-              "checkedBloodFlowPatterns": {
-                "type": "boolean"
-              },
-              "measuredLengthCervix": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "confirmedDueDate",
-              "prenatalTestCompleted",
-              "checkedAmountAmnioticFluid2nd",
-              "checkedBloodFlowPatterns",
-              "measuredLengthCervix"
-            ]
+          "facilityCode": {
+            "type": "string"
+          },
+          "rsaid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "pattern": "^[12][90]\\d\\d\\-[01]\\d\\-[0-3]\\d$"
+          },
+          "enrollmentDate": {
+            "type": "string"
+          },
+          "incidentDate": {
+            "type": "string"
+          },
+          "confirmedDueDate": {
+            "type": "boolean"
+          },
+          "prenatalTestCompleted": {
+            "type": "boolean"
+          },
+          "checkedAmountAmnioticFluid2nd": {
+            "type": "boolean"
+          },
+          "checkedBloodFlowPatterns": {
+            "type": "boolean"
+          },
+          "measuredLengthCervix": {
+            "type": "boolean"
           }
         },
-        "required": ["originalRequestBody"]
+        "required": [
+          "rsaid",
+          "facilityCode",
+          "confirmedDueDate",
+          "prenatalTestCompleted",
+          "checkedAmountAmnioticFluid2nd",
+          "checkedBloodFlowPatterns",
+          "measuredLengthCervix"
+        ]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "getOrgUnitID": {
+            "type": "object",
+            "properties": {
+              "organisationUnits": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id"]
+                }
+              }
+            },
+            "required": ["organisationUnits"]
+          }
+        },
+        "required": ["getOrgUnitID"]
       }
-    }
+    },
+    "required": ["requestBody", "lookupRequests"]
   },
   "requests": {
+    "lookup": [
+      {
+        "id": "getOrgUnitID",
+        "config": {
+          "method": "GET",
+          "url": "http://facility-cache:3500/api/organisationUnits.json",
+          "params": {
+            "query": {
+              "filter": {
+                "prefix": "code:eq:",
+                "path": "payload.facilityCode"
+              }
+            }
+          }
+        }
+      }
+    ],
     "response": [
       {
         "id": "fileQueue",
@@ -84,6 +165,8 @@
     ]
   },
   "constants": {
+    "trackedEntityType": "lXGgEp7UjA5",
+    "program": "UrRxeuNqeco",
     "stage": "VwT93dzlGKR",
     "status": "ACTIVE"
   }
