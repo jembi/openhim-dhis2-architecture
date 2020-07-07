@@ -1,9 +1,13 @@
 {
   "Channels": [
     {
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "type": "http",
-      "allow": ["dhis2"],
+      "allow": [
+        "dhis2"
+      ],
       "whitelist": [],
       "authType": "private",
       "matchContentTypes": [],
@@ -46,15 +50,19 @@
       "tcpHost": null,
       "tcpPort": null,
       "updatedBy": {
-        "id": "5edfa2f76a60fa0012d8f18c",
+        "id": "5ef5d71d7cbdf00012a62506",
         "name": "Super User"
       },
       "alerts": []
     },
     {
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "type": "http",
-      "allow": ["dhis2"],
+      "allow": [
+        "dhis2"
+      ],
       "whitelist": [],
       "authType": "private",
       "matchContentTypes": [],
@@ -96,16 +104,20 @@
       "tcpHost": null,
       "tcpPort": null,
       "updatedBy": {
-        "id": "5edfa2f76a60fa0012d8f18c",
+        "id": "5ef5d71d7cbdf00012a62506",
         "name": "Super User"
       },
       "alerts": [],
       "description": "Sends Inpatient Event data to DHIS2"
     },
     {
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "type": "http",
-      "allow": ["dhis2"],
+      "allow": [
+        "dhis2"
+      ],
       "whitelist": [],
       "authType": "private",
       "matchContentTypes": [],
@@ -123,12 +135,12 @@
           "type": "http",
           "status": "enabled",
           "forwardAuthHeader": false,
-          "name": "File queue",
+          "name": "Validator-Orchestrator",
           "secured": false,
-          "host": "localhost",
-          "port": 4002,
+          "host": "validator-orchestrator",
+          "port": 3003,
           "path": "",
-          "pathTransform": "",
+          "pathTransform": "s/\\/entity-based\//pregnancy-tracker/g",
           "primary": true,
           "username": "",
           "password": ""
@@ -138,7 +150,7 @@
       "responseBody": true,
       "rewriteUrlsConfig": [],
       "name": "DHIS2 Entity Based - Pregnancy Tracker",
-      "urlPattern": "^/entity-based/.*$",
+      "urlPattern": "^/entity-based/pregnancy-tracker/.*$",
       "matchContentRegex": null,
       "matchContentXpath": null,
       "matchContentValue": null,
@@ -147,7 +159,7 @@
       "tcpHost": null,
       "tcpPort": null,
       "updatedBy": {
-        "id": "5edfa2f76a60fa0012d8f18c",
+        "id": "5ef5d71d7cbdf00012a62506",
         "name": "Super User"
       },
       "alerts": [],
@@ -156,7 +168,9 @@
   ],
   "Clients": [
     {
-      "roles": ["dhis2"],
+      "roles": [
+        "dhis2"
+      ],
       "clientID": "client",
       "name": "client",
       "passwordAlgorithm": "sha512",
@@ -166,7 +180,9 @@
   ],
   "Users": [
     {
-      "groups": ["admin"],
+      "groups": [
+        "admin"
+      ],
       "firstname": "Super",
       "surname": "User",
       "email": "root@openhim.org",

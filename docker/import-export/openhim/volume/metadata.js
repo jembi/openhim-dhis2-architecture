@@ -40,7 +40,7 @@ exports.importMetaData = async () => {
     if (response.statusCode == 401) {
       throw new Error(`Incorrect OpenHIM API credentials`)
     }
-  
+
     if (response.status != 201) {
       throw new Error(`Failed to export OpenHIM config: ${response.status}`)
     }
@@ -67,11 +67,13 @@ exports.exportMetaData = async () => {
   try {
     const response = await axios(options)
 
-    fs.writeFileSync(path.resolve(__dirname, 'openhim-import.json'), JSON.stringify(response.data[0], null, 2), 'utf8')
-
-    console.log(
-      `Successfully Exported OpenHIM Config.`
+    fs.writeFileSync(
+      path.resolve(__dirname, 'openhim-import.json'),
+      JSON.stringify(response.data[0], null, 2),
+      'utf8'
     )
+
+    console.log(`Successfully Exported OpenHIM Config.`)
   } catch (error) {
     throw new Error(`Failed to export OpenHIM config: ${error.message}`)
   }

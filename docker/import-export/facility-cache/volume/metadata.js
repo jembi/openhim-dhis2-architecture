@@ -22,7 +22,7 @@ exports.importMetaData = async () => {
   const jsonData = JSON.parse(
     fs.readFileSync(path.resolve(__dirname, 'facility-cache.json'))
   )
-  
+
   const data = JSON.stringify(jsonData)
 
   const options = {
@@ -38,21 +38,25 @@ exports.importMetaData = async () => {
 
   try {
     const response = await axios(options)
-  
+
     if (response.status == 401) {
       throw new Error(`Incorrect OpenHIM API credentials`)
     }
-  
+
     if (response.status != 200) {
-      throw new Error(`Failed to import OpenHIM Mediator config: ${res.statusCode}`)
+      throw new Error(
+        `Failed to import OpenHIM Mediator config: ${res.statusCode}`
+      )
     }
-  
+
     console.log(
       `Successfully Imported OpenHIM Mediator Config.\n\nImport summary:${JSON.stringify(
         response.data
       )}`
     )
   } catch (error) {
-    throw new Error(`Failed to import OpenHIM Mediator config: ${error.message}`)
+    throw new Error(
+      `Failed to import OpenHIM Mediator config: ${error.message}`
+    )
   }
 }
