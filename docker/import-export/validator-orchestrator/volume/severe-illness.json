@@ -162,38 +162,46 @@
       "lookupRequests": {
         "type": "object",
         "properties": {
-          "facility": {
+          "getOrgUnitID": {
             "type": "object",
             "properties": {
               "organisationUnits": {
                 "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "errorMessage": "OrganisationUnit could not be found for supplied code, or more than one results were returned",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "id": {"type": "string"}
+                    "id": {
+                      "type": "string"
+                    }
                   },
                   "required": ["id"]
                 }
               }
-            }
+            },
+            "required": ["organisationUnits"]
           }
         },
-        "required": ["facility"]
+        "required": ["getOrgUnitID"]
       }
     },
-    "required": ["lookupRequests", "requestBody"]
+    "required": ["requestBody", "lookupRequests"]
   },
   "requests": {
     "lookup": [
       {
-        "id": "facility",
+        "id": "getOrgUnitID",
         "config": {
-          "method": "get",
+          "method": "GET",
           "url": "http://facility-cache:3500/api/organisationUnits.json",
           "params": {
-            "filter": {
-              "path": "payload.facilityCode",
-              "prefix": "code:eq:"
+            "query": {
+              "filter": {
+                "prefix": "code:eq:",
+                "path": "payload.facilityCode"
+              }
             }
           }
         }
@@ -212,7 +220,7 @@
   },
   "inputMapping": {
     "constants.dataSet": "dataSet",
-    "lookupRequests.facility.organisationUnits[0].id": "orgUnit",
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
     "requestBody.period": "period",
     "requestBody.completeDate": "completeDate",
 

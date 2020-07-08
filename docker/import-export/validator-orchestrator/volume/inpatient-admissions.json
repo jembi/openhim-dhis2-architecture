@@ -39,12 +39,40 @@
           "typeOfDischarge",
           "patientInsured"
         ]
+      },
+      "lookupRequests": {
+        "type": "object",
+        "properties": {
+          "getOrgUnitID": {
+            "type": "object",
+            "properties": {
+              "organisationUnits": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "errorMessage": "OrganisationUnit could not be found for supplied code, or more than one results were returned",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id"]
+                }
+              }
+            },
+            "required": ["organisationUnits"]
+          }
+        },
+        "required": ["getOrgUnitID"]
       }
-    }
+    },
+    "required": ["requestBody", "lookupRequests"]
   },
   "inputMapping": {
     "constants.program": "program",
-    "lookupRequests.facility.organisationUnits[0].id": "orgUnit",
+    "lookupRequests.getOrgUnitID.organisationUnits[0].id": "orgUnit",
     "timestamps.endpointStart": "eventDate",
 
     "constants.dataElements.dateOfAdmission": "dataValues[0].dataElement",
@@ -68,14 +96,16 @@
   "requests": {
     "lookup": [
       {
-        "id": "facility",
+        "id": "getOrgUnitID",
         "config": {
-          "method": "get",
+          "method": "GET",
           "url": "http://facility-cache:3500/api/organisationUnits.json",
           "params": {
-            "filter": {
-              "path": "payload.facilityCode",
-              "prefix": "code:eq:"
+            "query": {
+              "filter": {
+                "prefix": "code:eq:",
+                "path": "payload.facilityCode"
+              }
             }
           }
         }
@@ -87,7 +117,10 @@
         "id": "dhis-event",
         "config": {
           "method": "post",
-          "url": "http://file-queue:4002/tracker-event"
+          "url": "http://file-queue:4002/tracker-event",
+          "headers": {
+            "Content-Type": "application/json"
+          }
         }
       }
     ]

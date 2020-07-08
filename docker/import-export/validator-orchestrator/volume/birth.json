@@ -98,6 +98,7 @@
                 "type": "array",
                 "minItems": 1,
                 "maxItems": 1,
+                "errorMessage": "OrganisationUnit could not be found for supplied code, or more than one results were returned",
                 "items": {
                   "type": "object",
                   "properties": {
