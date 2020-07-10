@@ -66,7 +66,7 @@ Useful Links:
 
 ### Tracked Entity (Pregnancy Tracker)
 
-POST data to `/entity-based/validator-orchestrator-tracked-entity`
+POST data to `/entity-based/validator-orchestrator-tracked-entity/1st-trimester`
 
 #### Tracked Entity Message Example
 
@@ -81,8 +81,7 @@ POST data to `/entity-based/validator-orchestrator-tracked-entity`
   "determinedNumFetusesAndPlacenta": false,
   "checkedDiagnosisEntropicPregnancyMiscarriage": false,
   "checkedUterusPelvicAnatomy": true,
-  "checkedFatalAbnormalities": true,
-  "pregnancyStage": "1st-trimester"
+  "checkedFatalAbnormalities": true
 }
 ```
 
