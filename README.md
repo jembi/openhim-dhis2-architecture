@@ -66,7 +66,7 @@ Useful Links:
 
 ### Tracked Entity (Pregnancy Tracker)
 
-POST data to `/entity-based/validator-orchestrator-tracked-entity/1st-trimester`
+POST data to `/entity-based/pregnancy-tracker/1st-trimester`
 
 #### Tracked Entity Message Example
 
