@@ -89,6 +89,8 @@ POST data to `/entity-based/pregnancy-tracker/1st-trimester`
 
 ### Aggregate (Severe Illness) Anonymous Events
 
+POST data to `/aggregate/`
+
 #### Aggregate Data Value Set Message Example
 
 ```json
@@ -191,3 +193,19 @@ POST data to `/entity-based/pregnancy-tracker/1st-trimester`
 ```
 
 ### Program Events (Inpatient Events)
+
+POST data to `/event-based/`
+
+#### Aggregate Data Value Set Message Example
+
+```json
+{
+  "facilityCode": "123456",
+  "dateOfAdmission": "2020-03-27",
+  "dateOfDischarge": "2020-04-01",
+  "primaryDiagnosis": "R27",
+  "secondaryDiagnosis": "R21",
+  "typeOfDischarge": "alive",
+  "patientInsured": "yes"
+}
+```
