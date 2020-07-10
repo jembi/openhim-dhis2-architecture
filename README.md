@@ -196,7 +196,7 @@ POST data to `/aggregate/`
 
 POST data to `/event-based/`
 
-#### Aggregate Data Value Set Message Example
+#### Events Based Data Value Set Message Example
 
 ```json
 {
