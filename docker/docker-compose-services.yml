@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   validator-orchestrator:
-    image: jembi/openhim-mediator-mapping:v2.0.6
+    image: jembi/openhim-mediator-mapping:v2.0.7
     container_name: validator-orchestrator
     expose:
       - 3003
@@ -15,7 +15,7 @@ services:
       - MEDIATOR_URN=urn:mediator:validator-orchestrator
 
   populator:
-    image: jembi/openhim-mediator-mapping:v2.0.6
+    image: jembi/openhim-mediator-mapping:v2.0.7
     container_name: populator
     expose:
       - 3003
