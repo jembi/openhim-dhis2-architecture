@@ -64,6 +64,11 @@ Useful Links:
 
 - [DHIS2 Tracked Entity Docs](https://docs.dhis2.org/2.34/en/dhis2_developer_manual/web-api.html#tracked-entity-instance-management)
 
+### OpenHIM Client details
+
+- username: **client**
+- password: **test**
+
 ### Tracked Entity (Pregnancy Tracker)
 
 POST data to `/entity-based/pregnancy-tracker/1st-trimester`
@@ -96,7 +101,7 @@ POST data to `/aggregate/`
 ```json
 {
   "facilityCode": "123456",
-  "period": "202109",
+  "period": "202006",
   "hiv": {
     "male": {
       "0-7": 30,
@@ -113,11 +118,11 @@ POST data to `/aggregate/`
       "55+": 80
     },
     "other": {
-      "0-7": null,
+      "0-7": 10,
       "8-16": 0,
       "17-25": 40,
       "26-54": 65,
-      "55+": null
+      "55+": 14
     }
   },
   "tb": {
@@ -137,8 +142,8 @@ POST data to `/aggregate/`
     },
     "other": {
       "0-7": 2,
-      "8-16": null,
-      "17-25": null,
+      "8-16": 34,
+      "17-25": 12,
       "26-54": 0,
       "55+": 0
     }
@@ -159,11 +164,11 @@ POST data to `/aggregate/`
       "55+": 111
     },
     "other": {
-      "0-7": null,
-      "8-16": null,
-      "17-25": null,
-      "26-54": null,
-      "55+": null
+      "0-7": 0,
+      "8-16": 0,
+      "17-25": 3,
+      "26-54": 5,
+      "55+": 1
     }
   },
   "stroke": {
