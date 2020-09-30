@@ -11,6 +11,7 @@ const OPENHIM_API_PASSWORD =
 const OPENHIM_API_PORT = process.env.OPENHIM_API_PORT || 8080
 const OPENHIM_API_USERNAME =
   process.env.OPENHIM_API_USERNAME || 'root@openhim.org'
+const SECTIONS_TO_EXPORT = process.env.SECTIONS_TO_EXPORT || 'Channels,Clients,Users,ContactGroups'
 
 const authHeader = new Buffer.from(
   `${OPENHIM_API_USERNAME}:${OPENHIM_API_PASSWORD}`
@@ -66,10 +67,17 @@ exports.exportMetaData = async () => {
 
   try {
     const response = await axios(options)
+    const metadata = response.data[0]
+
+    console.log(`Exporting sections: ${SECTIONS_TO_EXPORT}`)
+
+    const filtered = SECTIONS_TO_EXPORT
+      .split(',')
+      .reduce((obj, key) => ({ ...obj, [key]: metadata[key] }), {})
 
     fs.writeFileSync(
       path.resolve(__dirname, 'openhim-import.json'),
-      JSON.stringify(response.data[0], null, 2),
+      JSON.stringify(filtered, null, 2),
       'utf8'
     )
 
