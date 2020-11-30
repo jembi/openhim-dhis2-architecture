@@ -1,6 +1,6 @@
 # OpenHIM - DHIS2 Architecture
 
-A genetic architecture for OpenHIM to DHIS2 integrations
+A generic architecture for OpenHIM to DHIS2 integrations
 
 ## Architecture Overview
 
