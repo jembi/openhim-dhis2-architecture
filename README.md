@@ -92,9 +92,13 @@ POST data to `/entity-based/pregnancy-tracker/1st-trimester`
 
 > Available pregnancy stages: `1st-trimester`, `2nd-trimester`, `3rd-trimester`, `birth`, `miscarriage`
 
+Postman collection available [here](https://www.getpostman.com/collections/81581e8e7707356a2fe7)
+
 ### Aggregate (Severe Illness) Anonymous Events
 
-POST data to `/aggregate/`
+POST data to `/aggregate/severe-illness`
+
+Postman collection available [here](https://www.getpostman.com/collections/81581e8e7707356a2fe7)
 
 #### Aggregate Data Value Set Message Example
 
@@ -199,7 +203,9 @@ POST data to `/aggregate/`
 
 ### Program Events (Inpatient Events)
 
-POST data to `/event-based/`
+POST data to `/event-based/inpatient`
+
+Postman collection available [here](https://www.getpostman.com/collections/81581e8e7707356a2fe7)
 
 #### Events Based Data Value Set Message Example
 
